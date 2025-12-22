@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Brew Studio | Google Cloud Consulting Perth</title>
+  <meta name="description"
+    content="Perth's premier Google Cloud consultancy for startups. Specialising in Cloud Architecture, Legacy Modernisation, and Fractional CTO services." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS (CDN for immediate rendering) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Manrope', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              950: '#020617',
+              900: '#0B1120',
+              800: '#151e32',
+              700: '#1e293b',
+            },
+            electric: {
+              500: '#4285F4',
+              400: '#6ea1fc',
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'scale(0.95)' },
+              '100%': { opacity: '1', transform: 'scale(1)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #0B1120;
+      color: white;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #ffffff, #94b8ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Hide scrollbar for clean look */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0B1120;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+  }
+}
+</script>
+</head>
+
+<body class="antialiased selection:bg-electric-500/30">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 py-6 border-b border-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 group">
+          <div class="p-2 bg-electric-500/10 rounded-lg group-hover:bg-electric-500/20 transition-colors">
+            <i data-lucide="code-2" class="w-6 h-6 text-electric-500"></i>
+          </div>
+          <span class="font-display font-bold text-xl tracking-tight text-white">
+            Code Brew <span class="text-electric-500">Studio</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <div class="flex items-center gap-6">
+            <a href="#expertise"
+              class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Expertise</a>
+            <a href="#services"
+              class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Services</a>
+            <a href="#work" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Work</a>
+          </div>
+          <button onclick="scrollToContact()"
+            class="inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-900 bg-electric-500 hover:bg-electric-400 text-white shadow-lg shadow-electric-500/25 px-3 py-1.5 text-sm">
+            Book Discovery
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden p-2 text-gray-400 hover:text-white" onclick="toggleMobileMenu()">
+          <i data-lucide="menu" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+      class="hidden md:hidden absolute top-full left-0 w-full bg-navy-900 border-b border-white/10 p-4 shadow-xl">
+      <div class="flex flex-col gap-4">
+        <a href="#expertise" class="text-base font-medium text-gray-300 hover:text-white block py-2"
+          onclick="toggleMobileMenu()">Expertise</a>
+        <a href="#services" class="text-base font-medium text-gray-300 hover:text-white block py-2"
+          onclick="toggleMobileMenu()">Services</a>
+        <a href="#work" class="text-base font-medium text-gray-300 hover:text-white block py-2"
+          onclick="toggleMobileMenu()">Work</a>
+        <button onclick="scrollToContact(); toggleMobileMenu()"
+          class="w-full inline-flex items-center justify-center rounded-lg font-medium bg-electric-500 hover:bg-electric-400 text-white px-5 py-2.5">
+          Book Discovery Call
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      <div class="absolute top-0 right-0 w-1/2 h-full bg-electric-500/5 blur-[120px] pointer-events-none"></div>
+      <div class="absolute bottom-0 left-0 w-1/3 h-1/2 bg-purple-500/5 blur-[100px] pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+
+          <div class="flex-1 max-w-2xl text-center lg:text-left">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
+              <span class="flex h-2 w-2 rounded-full bg-electric-500 animate-pulse"></span>
+              <span class="text-xs font-medium text-electric-400 tracking-wide uppercase">Perth's Premier Cloud
+                Consultancy</span>
+            </div>
+
+            <h1
+              class="font-display font-bold text-4xl sm:text-5xl lg:text-7xl leading-[1.1] mb-6 tracking-tight text-white">
+              Expert Cloud & Software<br />
+              Engineering for <br />
+              <span class="gradient-text">Startups & Scale-ups</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-gray-400 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+              Led by Perth’s only Google Cloud Expert. We build scalable architectures, modernise legacy systems, and
+              provide Fractional CTO leadership.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <button onclick="scrollToContact()"
+                class="group inline-flex items-center justify-center rounded-lg font-medium bg-electric-500 hover:bg-electric-400 text-white shadow-lg shadow-electric-500/25 px-8 py-3.5 text-lg">
+                Book a Discovery Call
+                <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </button>
+              <a href="#services"
+                class="inline-flex items-center justify-center rounded-lg font-medium border border-gray-600 text-gray-300 hover:border-electric-500 hover:text-electric-500 px-8 py-3.5 text-lg">
+                View Services
+              </a>
+            </div>
+          </div>
+
+          <div class="flex-1 w-full max-w-lg lg:max-w-none relative">
+            <div class="relative rounded-2xl border border-white/10 bg-navy-800/50 backdrop-blur-sm p-2 shadow-2xl">
+              <div class="absolute -top-1 -right-1 w-24 h-24 bg-electric-500/20 rounded-full blur-2xl"></div>
+              <!-- Terminal -->
+              <div class="rounded-xl bg-navy-900 border border-white/5 overflow-hidden">
+                <div class="flex items-center gap-2 px-4 py-3 bg-navy-800/50 border-b border-white/5">
+                  <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                  <div class="ml-auto text-xs text-gray-500 font-mono">deploy.sh</div>
+                </div>
+                <div class="p-6 font-mono text-sm sm:text-base leading-relaxed text-gray-300">
+                  <div class="flex gap-3 mb-2">
+                    <span class="text-electric-500">➜</span>
+                    <span>gcloud init project code-brew-studio</span>
+                  </div>
+                  <div class="flex gap-3 mb-2">
+                    <span class="text-electric-500">➜</span>
+                    <span>terraform plan -out=production</span>
+                  </div>
+                  <div class="text-gray-500 italic mb-4">
+                    ... analysing infrastructure state<br />
+                    ... optimising for scalability<br />
+                    ... cost reduction strategies applied
+                  </div>
+                  <div class="flex gap-3 mb-2">
+                    <span class="text-green-400">✔</span>
+                    <span class="text-white">Infrastructure ready for scale.</span>
+                  </div>
+                  <div class="flex gap-3 mt-4 animate-pulse">
+                    <span class="text-electric-500">➜</span>
+                    <span class="w-2 h-5 bg-gray-500 block"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Authority Block -->
+    <section id="expertise" class="py-20 bg-navy-800 border-y border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+
+          <div class="flex-1 space-y-6">
+            <div class="flex items-center gap-2 text-electric-500 font-semibold uppercase tracking-wider text-sm">
+              <i data-lucide="award" class="w-5 h-5"></i>
+              <span>Authority & Trust</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-white">
+              Local Expertise, <br />
+              <span class="text-electric-500">Global Standards.</span>
+            </h2>
+            <p class="text-gray-400 text-lg leading-relaxed">
+              We don't just use the cloud; we master it. Work directly with Western Australia's only recognised Google
+              Cloud Expert. No middlemen, no offshore delegation, just elite engineering for your business.
+            </p>
+
+            <ul class="space-y-3 pt-4">
+              <li class="flex items-center gap-3 text-gray-300">
+                <i data-lucide="check-circle-2" class="w-5 h-5 text-electric-500 flex-shrink-0"></i>
+                <span>Certified Google Cloud Professional</span>
+              </li>
+              <li class="flex items-center gap-3 text-gray-300">
+                <i data-lucide="check-circle-2" class="w-5 h-5 text-electric-500 flex-shrink-0"></i>
+                <span>Deep expertise in Modern Architecture, Infrastructure & Serverless</span>
+              </li>
+              <li class="flex items-center gap-3 text-gray-300">
+                <i data-lucide="check-circle-2" class="w-5 h-5 text-electric-500 flex-shrink-0"></i>
+                <span>Proven track record with Seed, & Series A-C Startups</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="flex-shrink-0 relative">
+            <div class="absolute inset-0 bg-electric-500/20 blur-3xl rounded-full"></div>
+            <div
+              class="relative bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full border border-gray-100 items-center text-center">
+              <img src="gde.png" alt="Google Cloud Logo">
+              <h3 class="text-gray-900 font-bold text-xl mb-1">Google Cloud</h3>
+              <div class="text-gray-500 font-medium mb-4">Expert since 2020</div>
+              <div class="h-px w-full bg-gray-200 mb-4"></div>
+              <p class="text-gray-600 text-sm">
+                Recognised for technical excellence in Modern Application Development and Enterprise Infrastructure.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-24 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-3xl md:text-5xl font-display font-bold mb-6">
+            Engineering for the <span class="text-electric-500">Modern Web</span>
+          </h2>
+          <p className="text-gray-400 text-lg">
+            We deliver end-to-end technical solutions designed to help ambitious companies scale faster and more
+            securely.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Item 1 -->
+          <div
+            class="group p-8 rounded-2xl bg-navy-800 border border-white/5 hover:border-electric-500/50 hover:bg-navy-800/80 transition-all duration-300 hover:-translate-y-1">
+            <div
+              class="w-12 h-12 rounded-lg bg-navy-900 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-electric-500/10 group-hover:border-electric-500/20 transition-colors">
+              <i data-lucide="cloud" class="w-6 h-6 text-gray-300 group-hover:text-electric-500 transition-colors"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Cloud Architecture Design</h3>
+            <p class="text-gray-400 leading-relaxed text-sm">Scalable, secure, and cost-optimised infrastructure built
+              on GCP best practices. Future-proof your stack from day one.</p>
+          </div>
+
+          <!-- Item 2 -->
+          <div
+            class="group p-8 rounded-2xl bg-navy-800 border border-white/5 hover:border-electric-500/50 hover:bg-navy-800/80 transition-all duration-300 hover:-translate-y-1">
+            <div
+              class="w-12 h-12 rounded-lg bg-navy-900 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-electric-500/10 group-hover:border-electric-500/20 transition-colors">
+              <i data-lucide="layers" class="w-6 h-6 text-gray-300 group-hover:text-electric-500 transition-colors"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Legacy Modernisation</h3>
+            <p class="text-gray-400 leading-relaxed text-sm">Optimise the monolith. We migrate legacy systems to agile
+              services and serverless architectures without downtime.</p>
+          </div>
+
+          <!-- Item 3 -->
+          <div
+            class="group p-8 rounded-2xl bg-navy-800 border border-white/5 hover:border-electric-500/50 hover:bg-navy-800/80 transition-all duration-300 hover:-translate-y-1">
+            <div
+              class="w-12 h-12 rounded-lg bg-navy-900 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-electric-500/10 group-hover:border-electric-500/20 transition-colors">
+              <i data-lucide="cpu" class="w-6 h-6 text-gray-300 group-hover:text-electric-500 transition-colors"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Fractional CTO</h3>
+            <p class="text-gray-400 leading-relaxed text-sm">Strategic technical leadership for startups. We bridge the
+              gap between seed and scale, managing roadmaps and engineering teams.</p>
+          </div>
+
+          <!-- Item 4 -->
+          <div
+            class="group p-8 rounded-2xl bg-navy-800 border border-white/5 hover:border-electric-500/50 hover:bg-navy-800/80 transition-all duration-300 hover:-translate-y-1">
+            <div
+              class="w-12 h-12 rounded-lg bg-navy-900 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-electric-500/10 group-hover:border-electric-500/20 transition-colors">
+              <i data-lucide="shield-check"
+                class="w-6 h-6 text-gray-300 group-hover:text-electric-500 transition-colors"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Google Cloud Audits</h3>
+            <p class="text-gray-400 leading-relaxed text-sm">Comprehensive reviews of your security posture, cost
+              efficiency, and performance bottlenecks with actionable remediation plans.</p>
+          </div>
+
+          <!-- Item 5 -->
+          <div
+            class="group p-8 rounded-2xl bg-navy-800 border border-white/5 hover:border-electric-500/50 hover:bg-navy-800/80 transition-all duration-300 hover:-translate-y-1">
+            <div
+              class="w-12 h-12 rounded-lg bg-navy-900 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-electric-500/10 group-hover:border-electric-500/20 transition-colors">
+              <i data-lucide="code" class="w-6 h-6 text-gray-300 group-hover:text-electric-500 transition-colors"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Full-Stack Development</h3>
+            <p class="text-gray-400 leading-relaxed text-sm">End-to-end product engineering using modern stacks (Go,
+              TypeScript, React). We build what we architect.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="work" class="py-24 bg-navy-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <div>
+            <h2 class="text-3xl md:text-5xl font-display font-bold mb-4">
+              Proven <span class="text-electric-500">Results</span>
+            </h2>
+            <p class="text-gray-400 max-w-xl">
+              Real problems solved for real businesses. From cost reduction to massive scale.
+            </p>
+          </div>
+          <a href="#" class="hidden md:flex items-center gap-2 text-electric-500 font-medium hover:text-electric-400">
+            View all projects <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Case 1 -->
+          <div class="bg-navy-900 rounded-xl p-8 border border-white/5 hover:border-white/10 transition-colors">
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="text-xs font-mono py-1 px-2 rounded bg-white/5 text-gray-400 border border-white/5">Cost
+                Ops</span>
+              <span
+                class="text-xs font-mono py-1 px-2 rounded bg-white/5 text-gray-400 border border-white/5">DevOps</span>
+              <span class="text-xs font-mono py-1 px-2 rounded bg-white/5 text-gray-400 border border-white/5">Health
+                Tech</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">Health Tech Scale-up</h3>
+            <div class="space-y-4 mt-6">
+              <div>
+                <div class="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-1">Problem</div>
+                <p class="text-gray-300 text-sm">Escalating cloud costs and slow deployment cycles.</p>
+              </div>
+              <div>
+                <div class="text-xs uppercase tracking-wider text-electric-500 font-semibold mb-1">Solution</div>
+                <p class="text-white text-sm font-medium">Reduced monthly GCP bill by 40% via rightsizing and
+                  automated CI/CD pipelines.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case 2 -->
+          <div class="bg-navy-900 rounded-xl p-8 border border-white/5 hover:border-white/10 transition-colors">
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span
+                class="text-xs font-mono py-1 px-2 rounded bg-white/5 text-gray-400 border border-white/5">SaaS</span>
+              <span
+                class="text-xs font-mono py-1 px-2 rounded bg-white/5 text-gray-400 border border-white/5">Containers</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">RocketFlag</h3>
+            <div class="space-y-4 mt-6">
+              <div>
+                <div class="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-1">Problem</div>
+                <p class="text-gray-300 text-sm">Large traffic loads at 70-100 Requests Per Second.</p>
+              </div>
+              <div>
+                <div class="text-xs uppercase tracking-wider text-electric-500 font-semibold mb-1">Solution</div>
+                <p class="text-white text-sm font-medium">Deployed fully-managed docker runtime reducing staff
+                  operational costs to almost zero, increased uptime to six 9's of availability. (99.9999%)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case 3 -->
+          <div class="bg-navy-900 rounded-xl p-8 border border-white/5 hover:border-white/10 transition-colors">
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span
+                class="text-xs font-mono py-1 px-2 rounded bg-white/5 text-gray-400 border border-white/5">Security</span>
+              <span
+                class="text-xs font-mono py-1 px-2 rounded bg-white/5 text-gray-400 border border-white/5">Compliance</span>
+              <span
+                class="text-xs font-mono py-1 px-2 rounded bg-white/5 text-gray-400 border border-white/5">Networking</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">Large enterprise retailer</h3>
+            <div class="space-y-4 mt-6">
+              <div>
+                <div class="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-1">Problem</div>
+                <p class="text-gray-300 text-sm">Strict enterprise compliance requirements for new data & online
+                  shopping platform.</p>
+              </div>
+              <div>
+                <div class="text-xs uppercase tracking-wider text-electric-500 font-semibold mb-1">Solution</div>
+                <p class="text-white text-sm font-medium">Deployed a hybrid networking solution with connectivity across
+                  Azure, Google Cloud and on-premise datacenter. Infrastructure as code.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="py-24 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-3xl md:text-5xl font-display font-bold mb-6">
+            The <span class="text-electric-500">Team</span>
+          </h2>
+          <p class="text-gray-400 text-lg">
+            Expert leadership guiding your cloud journey.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <!-- Member 1 -->
+          <div
+            class="group p-8 rounded-2xl bg-navy-800 border border-white/5 hover:border-electric-500/50 hover:bg-navy-800/80 transition-all duration-300 hover:-translate-y-1">
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-36 h-36 rounded-full bg-navy-900 border border-white/10 mb-6 group-hover:border-electric-500/50 transition-colors relative overflow-hidden">
+                <img src="profile.jpg" alt="Jean-Klaas Gunnink" class="w-full h-full object-cover">
+              </div>
+
+              <h3 class="text-xl font-bold text-white mb-1">Jean-Klaas Gunnink</h3>
+              <div class="text-electric-500 text-sm font-medium mb-4">Principal Cloud Architect & GDE</div>
+              <p class="text-gray-400 leading-relaxed text-sm">
+                Perth’s only Google Cloud Expert. Specialising in Cloud Architecture, Legacy Modernisation, and
+                Fractional CTO services.
+              </p>
+              <div class="flex gap-4 mt-6">
+                <a href="https://github.com/jgunnink" target="_blank"
+                  class="p-2 rounded-full bg-navy-900 border border-white/10 hover:border-electric-500/50 text-gray-400 hover:text-white transition-all">
+                  <i data-lucide="github" class="w-4 h-4"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/jkgunnink" target="_blank"
+                  class="p-2 rounded-full bg-navy-900 border border-white/10 hover:border-electric-500/50 text-gray-400 hover:text-white transition-all">
+                  <i data-lucide="linkedin" class="w-4 h-4"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Member 2 -->
+          <div
+            class="group p-8 rounded-2xl bg-navy-800 border border-white/5 hover:border-electric-500/50 hover:bg-navy-800/80 transition-all duration-300 hover:-translate-y-1">
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-36 h-36 rounded-full bg-navy-900 border border-white/10 mb-6 group-hover:border-electric-500/50 transition-colors relative overflow-hidden">
+                <i data-lucide="user" class="w-full h-full object-cover"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-1">Your name here?</h3>
+              <div class="text-electric-500 text-sm font-medium mb-4">Your title here</div>
+              <p class="text-gray-400 leading-relaxed text-sm">
+                Are you a forward thinking leader at the top of your game, wanting to help teams innovate and build
+                faster? Let's chat!
+              </p>
+              <div class="flex gap-4 mt-6">
+                <a href="#" target="_blank"
+                  class="p-2 rounded-full bg-navy-900 border border-white/10 hover:border-electric-500/50 text-gray-400 hover:text-white transition-all">
+                  <i data-lucide="github" class="w-4 h-4"></i>
+                </a>
+                <a href="#" target="_blank"
+                  class="p-2 rounded-full bg-navy-900 border border-white/10 hover:border-electric-500/50 text-gray-400 hover:text-white transition-all">
+                  <i data-lucide="linkedin" class="w-4 h-4"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 relative overflow-hidden bg-navy-800">
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-electric-500/5 rounded-full blur-[120px] pointer-events-none">
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+          <div>
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">
+              Ready to <span class="text-electric-500">Scale?</span>
+            </h2>
+            <p class="text-gray-400 text-lg mb-12">
+              Whether you need a full cloud migration, a fractional CTO, or just an audit of your current stack, let's
+              talk.
+            </p>
+
+            <div class="space-y-8">
+              <div class="flex items-start gap-4">
+                <div class="p-3 bg-navy-900 rounded-lg border border-white/10">
+                  <i data-lucide="calendar" class="w-6 h-6 text-electric-500"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-white mb-2">Book a Discovery Call</h3>
+                  <p class="text-gray-400 mb-4 text-sm">Skip the email tag. Find a time that works for you directly on
+                    our calendar.</p>
+                  <button onclick="toggleModal(true)"
+                    class="inline-flex items-center justify-center rounded-lg font-medium bg-white text-navy-900 hover:bg-gray-100 border border-transparent focus:ring-white px-5 py-2.5">
+                    Schedule Now
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="p-3 bg-navy-900 rounded-lg border border-white/10">
+                  <i data-lucide="mail" class="w-6 h-6 text-electric-500"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-white mb-2">Message Us</h3>
+                  <p class="text-gray-400 mb-1 text-sm">Prefer to write it down? Send us your brief via LinkedIn.</p>
+                  <a href="https://www.linkedin.com/company/code-brew-studio" target="_blank"
+                    class="text-electric-500 hover:text-electric-400 font-medium">LinkedIn</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-8 rounded-2xl border border-white/5 shadow-xl h-full flex flex-col">
+            <div id="form-container" class="flex-1 h-full">
+              <form id="contact-form" onsubmit="handleFormSubmit(event)" class="h-full">
+                <iframe
+                  src="https://docs.google.com/forms/d/e/1FAIpQLSd8xyvrgS_IpPJIaA43HwU61S26e5ZQShLjWwgv6LWCIUXniA/viewform?embedded=true"
+                  frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%"
+                  class="min-h-[800px]">Loading…</iframe>
+              </form>
+            </div>
+
+            <!-- Success State (Hidden by default) -->
+            <div id="success-message" class="hidden h-full flex flex-col items-center justify-center text-center py-12">
+              <div class="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mb-4">
+                <i data-lucide="send" class="w-8 h-8 text-green-500"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-2">Message Sent!</h3>
+              <p class="text-gray-400">Thanks for reaching out. We'll be in touch within 24 hours.</p>
+              <button onclick="resetForm()"
+                class="mt-6 text-electric-500 hover:text-electric-400 text-sm font-medium">Send another message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendly Modal -->
+    <div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
+      <div class="absolute inset-0 bg-navy-900/80 backdrop-blur-sm" onclick="toggleModal(false)"></div>
+      <div class="relative bg-white w-full max-w-6xl  rounded-xl shadow-2xl overflow-hidden animate-fade-in">
+        <button onclick="toggleModal(false)"
+          class="absolute top-4 right-4 z-10 p-2 bg-white/90 rounded-full hover:bg-gray-100 transition-colors">
+          <i data-lucide="x" class="w-6 h-6 text-gray-900"></i>
+        </button>
+
+        <div class="w-full h-full items-center justify-center bg-gray-50">
+          <div class="text-center p-8">
+            <h3 class="text-2xl font-bold text-navy-900 mb-4">Discovery Call Schedule</h3>
+            <p class="text-gray-500 mb-8">Let's connect to discuss your project. Feel free to book a call here.</p>
+            <div class="inline-block p-6 bg-white rounded-lg border border-gray-200 shadow-sm text-left w-full">
+              <div class="flex justify-between items-center mb-4">
+                <span class="font-bold text-lg text-navy-900">30 Min Meeting</span>
+                <span class="text-electric-500 font-bold">$0.00</span>
+              </div>
+              <div class="space-y-2">
+                <div style="background-color: #ffffff;">
+                  <iframe
+                    src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2c4_BoRHbL8oYYiWMFoHmmRmnUUO12sd9VBGUl37OufaxIkiCQS40ncEHxVTEtrsqNY-0-h5A3?gv=true"
+                    style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-navy-950 border-t border-white/5 py-12 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex flex-col items-center md:items-start gap-2">
+          <span class="font-display font-bold text-lg text-white">
+            Code Brew <span class="text-electric-500">Studio</span>
+          </span>
+          <p class="text-gray-500">© <span id="year"></span> Code Brew Studio Pty Ltd.</p>
+          <p class="text-gray-600 text-xs">ABN: 57 678 003 248</p>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="flex items-center gap-2 text-gray-400">
+            <i data-lucide="map-pin" class="w-4 h-4"></i>
+            <span>Perth, Western Australia</span>
+          </div>
+          <div class="h-4 w-px bg-white/10"></div>
+          <div class="flex gap-4">
+            <a href="https://www.linkedin.com/company/code-brew-studio"
+              class="text-gray-400 hover:text-white transition-colors"><i data-lucide="linkedin"
+                class="w-5 h-5"></i></a>
+            <a href="https://github.com/jgunnink" class="text-gray-400 hover:text-white transition-colors"><i
+                data-lucide="github" class="w-5 h-5"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Logic -->
+  <script>
+    // Icons
+    lucide.createIcons();
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 20) {
+        nav.classList.add('bg-navy-900/90', 'backdrop-blur-md', 'border-white/10', 'py-4');
+        nav.classList.remove('py-6', 'border-transparent');
+      } else {
+        nav.classList.remove('bg-navy-900/90', 'backdrop-blur-md', 'border-white/10', 'py-4');
+        nav.classList.add('py-6', 'border-transparent');
+      }
+    });
+
+    // Mobile Menu
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('menu-icon');
+      menu.classList.toggle('hidden');
+
+      // Re-render icon
+      if (menu.classList.contains('hidden')) {
+        icon.setAttribute('data-lucide', 'menu');
+      } else {
+        icon.setAttribute('data-lucide', 'x');
+      }
+      lucide.createIcons();
+    }
+
+    // Smooth Scroll
+    function scrollToContact() {
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Modal
+    function toggleModal(show) {
+      const modal = document.getElementById('modal');
+      if (show) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    // Form Handling
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const originalText = btn.innerText;
+
+      btn.disabled = true;
+      btn.innerText = 'Sending...';
+      btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+      setTimeout(() => {
+        document.getElementById('form-container').classList.add('hidden');
+        document.getElementById('success-message').classList.remove('hidden');
+        btn.innerText = originalText;
+        btn.disabled = false;
+        btn.classList.remove('opacity-70', 'cursor-not-allowed');
+      }, 1500);
+    }
+
+    function resetForm() {
+      document.getElementById('contact-form').reset();
+      document.getElementById('form-container').classList.remove('hidden');
+      document.getElementById('success-message').classList.add('hidden');
+    }
+  </script>
+</body>
+
+</html>
