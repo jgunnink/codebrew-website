@@ -1,0 +1,599 @@
+:root {
+  /* Palette: Bone, Charcoal, & Muted Rust */
+  --bg: #f4f3ef;
+  --text: #1c1b1a;
+  --border: #c8c6bc;
+  --accent: #b85038;
+  --hover: #ebeae4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--bg);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+.brand {
+  font-family: "Space Grotesk", sans-serif;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+
+.mono {
+  font-family: "Space Mono", monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #555;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: 0.2s ease;
+}
+
+/* Grid Layout */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.b-bottom {
+  border-bottom: 1px solid var(--border);
+}
+
+.b-right {
+  border-right: 1px solid var(--border);
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2.5rem;
+  position: sticky;
+  top: 0;
+  background: rgba(244, 243, 239, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+
+.brand {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+/* Hero Section */
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.hero-content {
+  padding: 8vw 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-content h1 {
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  margin: 1.5rem 0;
+}
+
+.hero-content p {
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  max-width: 600px;
+  color: #444;
+}
+
+/* Living Wireframe Visuals */
+.hero-visual,
+.saas-visual {
+  background: var(--hover);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-visual {
+  min-height: 500px;
+}
+
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Philosophy & Portrait */
+.philosophy {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+}
+
+.portrait-wrap {
+  background: #d9d8d0;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  position: relative;
+}
+
+.portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Magic CSS to create the raw, moody editorial look */
+  filter: grayscale(100%) contrast(140%) brightness(0.9);
+  mix-blend-mode: multiply;
+}
+
+.phil-content {
+  padding: 6vw 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.phil-content h2 {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  margin-bottom: 2rem;
+}
+
+.phil-content p {
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  color: #444;
+  max-width: 650px;
+  margin-bottom: 1.5rem;
+}
+
+/* Section Labels */
+.section-label {
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  background: var(--text);
+  color: var(--bg);
+}
+
+.section-label .mono {
+  color: #888;
+}
+
+/* Capabilities Grid */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cap-card {
+  padding: 5rem 3rem;
+  transition: background 0.3s;
+}
+
+.cap-card:hover {
+  background: var(--hover);
+}
+
+.cap-card .mono {
+  color: var(--accent);
+  margin-bottom: 3rem;
+  display: block;
+}
+
+.cap-card h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.cap-card p {
+  font-size: 1.05rem;
+  color: #555;
+}
+
+/* SaaS Section */
+.saas-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.saas-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.saas-content {
+  padding: 6vw 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.saas-content h3 {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  margin: 1rem 0;
+}
+
+.saas-content p {
+  font-size: 1.15rem;
+  color: #444;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--text);
+  border-radius: 50px;
+  width: fit-content;
+}
+
+.badge.accent {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--text);
+  color: var(--bg);
+  font-family: "Space Grotesk", sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--text);
+  width: fit-content;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: transparent;
+  color: var(--text);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+}
+
+.btn-outline:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.saas-visual {
+  padding: 4rem;
+}
+
+/* Call to Action */
+.cta {
+  padding: 10vw 2.5rem;
+  text-align: center;
+  background: var(--hover);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta h2 {
+  font-size: clamp(3rem, 7vw, 7rem);
+  margin-bottom: 3rem;
+}
+
+.btn-massive {
+  font-size: 1.5rem;
+  padding: 1.5rem 3rem;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.btn-massive:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+/* --- NEW: Hero Credential Styling --- */
+.gde-badge {
+  position: relative;
+  z-index: 2;
+  max-width: 80%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  /* Brutalist hard shadow to make it look like a physical object */
+  box-shadow: 12px 12px 0px var(--text);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.gde-badge:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 16px 16px 0px var(--text);
+}
+
+/* --- NEW: Trust Strip (Client Logos) --- */
+.logo-strip {
+  display: flex;
+  background: var(--bg);
+}
+
+.logo-label {
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.logo-track {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 4rem;
+  padding: 2rem 3.5rem;
+  width: 100%;
+}
+
+.client-logo {
+  height: 35px;
+  width: auto;
+  object-fit: contain;
+  /* Magic CSS: Turns colorful logos into subtle blueprint stamps */
+  filter: grayscale(100%) opacity(0.35);
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.client-logo:hover {
+  /* Restores full color on hover */
+  filter: grayscale(0%) opacity(1);
+}
+
+/* Mobile Fixes for the Logo Strip */
+@media (max-width: 1024px) {
+  .logo-strip {
+    flex-direction: column;
+  }
+
+  .logo-label {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    justify-content: center;
+  }
+
+  .logo-track {
+    justify-content: center;
+    gap: 3rem;
+  }
+}
+
+/* Footer */
+footer {
+  padding: 2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* --- TRUST STRIP (LOGOS) --- */
+.logo-strip {
+  display: flex;
+  background: var(--bg);
+}
+
+.logo-label {
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.logo-track {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 4rem;
+  padding: 2rem 3.5rem;
+  width: 100%;
+}
+
+.client-logo {
+  height: 35px;
+  width: auto;
+  object-fit: contain;
+  /* Turns colorful logos into subtle blueprint stamps */
+  filter: grayscale(100%) opacity(0.35);
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.client-logo:hover {
+  /* Restores full color on hover */
+  filter: grayscale(0%) opacity(1);
+}
+
+/* --- CREDENTIALS GRID --- */
+.cred-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  /* Maintains our asymmetrical layout */
+}
+
+.gde-feature {
+  padding: 6vw 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--hover);
+}
+
+.gde-badge-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  /* Brutalist heavy shadow */
+  box-shadow: 12px 12px 0px var(--text);
+  margin-bottom: 3rem;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.gde-badge-img:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 16px 16px 0px var(--accent);
+  /* Rust colored shadow on hover! */
+}
+
+.gde-feature h3 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.gde-feature p {
+  font-size: 1.15rem;
+  color: #444;
+  max-width: 600px;
+}
+
+.cert-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-item {
+  padding: 3rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  /* Makes them stretch to fill the column evenly */
+  transition: background 0.3s ease;
+  border-bottom: 1px solid var(--border);
+}
+
+.cert-item:last-child {
+  border-bottom: none;
+}
+
+.cert-item:hover {
+  background: var(--hover);
+}
+
+.cert-item h4 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin: 0.5rem 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .logo-strip {
+    flex-direction: column;
+  }
+
+  .logo-label {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    justify-content: center;
+  }
+
+  .logo-track {
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .cred-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gde-feature {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero,
+  .philosophy,
+  .saas-item,
+  .cap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .b-right {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero-visual {
+    min-height: 400px;
+  }
+
+  .cap-card:not(:last-child) {
+    border-bottom: 1px solid var(--border);
+  }
+}
