@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code Brew Studio | Technical Consultancy & Engineering</title>
   <meta name="description"
-    content="Independent boutique technical consultancy specializing in Google Cloud architecture, bespoke software engineering, and technical leadership.">
+    content="Independent boutique technical consultancy specialising in Google Cloud architecture, bespoke software engineering, and technical leadership.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -169,24 +169,6 @@
       opacity: 0.5;
     }
 
-    /* SVG Animations */
-    @keyframes dash {
-      to {
-        stroke-dashoffset: -40;
-      }
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 0.4;
-      }
-
-      50% {
-        opacity: 1;
-      }
-    }
 
     @keyframes rotate {
       to {
@@ -385,6 +367,79 @@
       color: var(--accent);
     }
 
+    /* --- NEW: Hero Credential Styling --- */
+    .gde-badge {
+      position: relative;
+      z-index: 2;
+      max-width: 80%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      /* Brutalist hard shadow to make it look like a physical object */
+      box-shadow: 12px 12px 0px var(--text);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .gde-badge:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 16px 16px 0px var(--text);
+    }
+
+    /* --- NEW: Trust Strip (Client Logos) --- */
+    .logo-strip {
+      display: flex;
+      background: var(--bg);
+    }
+
+    .logo-label {
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .logo-track {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 4rem;
+      padding: 2rem 3.5rem;
+      width: 100%;
+    }
+
+    .client-logo {
+      height: 35px;
+      width: auto;
+      object-fit: contain;
+      /* Magic CSS: Turns colorful logos into subtle blueprint stamps */
+      filter: grayscale(100%) opacity(0.35);
+      transition: filter 0.3s ease, opacity 0.3s ease;
+    }
+
+    .client-logo:hover {
+      /* Restores full color on hover */
+      filter: grayscale(0%) opacity(1);
+    }
+
+    /* Mobile Fixes for the Logo Strip */
+    @media (max-width: 1024px) {
+      .logo-strip {
+        flex-direction: column;
+      }
+
+      .logo-label {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        justify-content: center;
+      }
+
+      .logo-track {
+        justify-content: center;
+        gap: 3rem;
+      }
+    }
+
     /* Footer */
     footer {
       padding: 2rem 2.5rem;
@@ -440,28 +495,31 @@
       <div class="hero-content b-right">
         <span class="mono">SYS.ARCH // INDEPENDENT CONSULTANCY</span>
         <h1>ENGINEERED<br>FOR SCALE.</h1>
-        <p>Specializing in Google Cloud architecture, bespoke software engineering, and strategic technical leadership.
-          We don't just advise—we build.</p>
+        <p>Specialising in Google Cloud architecture, bespoke software engineering, and strategic technical leadership.
+          We don't just advise. We build.</p>
       </div>
 
       <div class="hero-visual">
         <div class="grid-bg"></div>
-        <svg width="250" height="250" viewBox="0 0 100 100" style="z-index: 1; overflow: visible;">
-          <rect x="25" y="25" width="50" height="50" fill="none" stroke="var(--text)" stroke-width="0.5" />
-          <circle cx="50" cy="50" r="35" fill="none" stroke="var(--border)" stroke-width="1" stroke-dasharray="2 4"
-            style="transform-origin: 50% 50%; animation: rotate 30s linear infinite;" />
-
-          <line x1="0" y1="50" x2="100" y2="50" stroke="var(--text)" stroke-width="1" stroke-dasharray="4 4"
-            style="animation: dash 4s linear infinite;" />
-          <line x1="50" y1="0" x2="50" y2="100" stroke="var(--text)" stroke-width="1" stroke-dasharray="4 4"
-            style="animation: dash 4s linear infinite;" />
-
-          <circle cx="50" cy="50" r="4" fill="var(--bg)" stroke="var(--accent)" stroke-width="2" />
-          <circle cx="25" cy="50" r="3" fill="var(--accent)" style="animation: pulse 3s ease infinite;" />
-          <circle cx="75" cy="50" r="3" fill="var(--accent)" style="animation: pulse 3s ease infinite 1.5s;" />
-        </svg>
+        <img src="gde.png" alt="Google Developer Expert 2025" class="gde-badge">
       </div>
     </header>
+
+    <div class="logo-strip b-bottom">
+      <div class="logo-label b-right mono">
+        TRUSTED BY //
+      </div>
+      <div class="logo-track">
+        <img src="img/hexis-logo.png" alt="Client 1" class="client-logo">
+        <img src="img/anz-logo.svg" alt="Client 2" class="client-logo">
+        <img src="img/hapana.svg" alt="Client 1" class="client-logo">
+        <img src="img/springboards.svg" alt="Client 3" class="client-logo">
+        <!-- <img src="img/datavanguards.webp" alt="Client 3" class="client-logo"> -->
+        <img src="img/chemist_warehouse.png" alt="Client 4" class="client-logo">
+        <img src="img/giftster.webp" alt="Client 2" class="client-logo">
+        <img src="img/coursebox.webp" alt="Client 4" class="client-logo">
+      </div>
+    </div>
 
     <section id="philosophy" class="philosophy b-bottom">
       <div class="portrait-wrap b-right">
@@ -531,17 +589,15 @@
         <div class="saas-visual b-right">
           <svg width="150" height="150" viewBox="0 0 100 100" style="overflow:visible;">
             <rect x="10" y="20" width="80" height="60" fill="none" stroke="var(--text)" stroke-width="1" />
-            <polygon points="40,35 40,65 65,50" fill="none" stroke="var(--accent)" stroke-width="2"
-              style="animation: pulse 2s ease infinite;" />
-            <line x1="10" y1="88" x2="90" y2="88" stroke="var(--border)" stroke-width="2" stroke-dasharray="4 4"
-              style="animation: dash 5s linear infinite;" />
+            <polygon points="40,35 40,65 65,50" fill="none" stroke="var(--accent)" stroke-width="2" />
+            <line x1="10" y1="88" x2="90" y2="88" stroke="var(--border)" stroke-width="2" stroke-dasharray="4 4" />
           </svg>
         </div>
         <div class="saas-content">
           <span class="mono badge accent">EARLY ACCESS / BETA</span>
           <h3>Tape</h3>
           <p>High-performance asynchronous video messaging. A heavy-lifting architecture handling complex video
-            encoding, low-latency streaming, and optimized cloud storage natively.</p>
+            encoding, low-latency streaming, and optimised cloud storage natively.</p>
           <a href="#" target="_blank" class="btn btn-outline"
             style="border-color: var(--accent); color: var(--accent);">Request Early Access</a>
         </div>
