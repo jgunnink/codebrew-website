@@ -501,7 +501,39 @@
 
       <div class="hero-visual">
         <div class="grid-bg"></div>
-        <img src="gde.png" alt="Google Developer Expert 2025" class="gde-badge">
+        <svg width="300" height="300" viewBox="0 0 100 100" style="z-index: 1; overflow: visible;">
+          <g style="animation: hover 6s ease-in-out infinite;">
+            <path d="M50 75 L80 60 L50 45 L20 60 Z" fill="var(--bg)" stroke="var(--text)" stroke-width="0.5" />
+            <path d="M20 60 L20 65 L50 80 L80 65 L80 60" fill="none" stroke="var(--text)" stroke-width="0.5" />
+          </g>
+
+          <g style="animation: hover 6s ease-in-out infinite 0.5s;">
+            <path d="M50 60 L80 45 L50 30 L20 45 Z" fill="var(--accent)" stroke="var(--text)" stroke-width="0.5"
+              opacity="0.1" />
+            <path d="M50 60 L80 45 L50 30 L20 45 Z" fill="none" stroke="var(--text)" stroke-width="0.5" />
+            <path d="M20 45 L20 50 L50 65 L80 50 L80 45" fill="none" stroke="var(--text)" stroke-width="0.5" />
+          </g>
+
+          <g style="animation: hover 6s ease-in-out infinite 1s;">
+            <path d="M50 45 L80 30 L50 15 L20 30 Z" fill="var(--bg)" stroke="var(--accent)" stroke-width="0.5" />
+            <path d="M20 30 L20 35 L50 50 L80 35 L80 30" fill="none" stroke="var(--accent)" stroke-width="0.5" />
+          </g>
+        </svg>
+
+        <style>
+          @keyframes hover {
+
+            0%,
+            100% {
+              transform: translateY(0);
+            }
+
+            50% {
+              transform: translateY(-5px);
+            }
+          }
+        </style>
+        <!-- <img src="gde.png" alt="Google Developer Expert 2025" class="gde-badge"> -->
       </div>
     </header>
 
@@ -510,14 +542,14 @@
         TRUSTED BY //
       </div>
       <div class="logo-track">
-        <img src="img/hexis-logo.png" alt="Client 1" class="client-logo">
-        <img src="img/anz-logo.svg" alt="Client 2" class="client-logo">
-        <img src="img/hapana.svg" alt="Client 1" class="client-logo">
-        <img src="img/springboards.svg" alt="Client 3" class="client-logo">
-        <!-- <img src="img/datavanguards.webp" alt="Client 3" class="client-logo"> -->
-        <img src="img/chemist_warehouse.png" alt="Client 4" class="client-logo">
-        <img src="img/giftster.webp" alt="Client 2" class="client-logo">
-        <img src="img/coursebox.webp" alt="Client 4" class="client-logo">
+        <img src="img/hexis-logo.png" alt="Hexis" class="client-logo">
+        <img src="img/anz-logo.svg" alt="ANZ Bank" class="client-logo">
+        <img src="img/hapana.svg" alt="Hapana" class="client-logo">
+        <img src="img/springboards.svg" alt="Springboards" class="client-logo">
+        <img src="img/chemist_warehouse.png" alt="Chemist Warehouse" class="client-logo">
+        <img src="img/giftster.webp" alt="Gifster" class="client-logo">
+        <img src="img/coursebox.webp" alt="Courseox" class="client-logo">
+        <img src="img/carelynx-logo.webp" alt="CareLynx" class="client-logo">
       </div>
     </div>
 
@@ -530,13 +562,14 @@
         <p>I operate as an independent boutique. When you work with Code Brew Studio, you get direct access to a
           technical leader who builds, deploys, and scales proprietary SaaS products in the wild.</p>
         <p>Abstract advice is cheap. Real architecture requires real operational experience. I rely on battle-tested
-          frameworks derived from building my own highly-available systems.</p>
+          frameworks derived from building my own highly-available systems, enterprise experience in banking, financial
+          services and healthcare as well as scaling startups & scaleups.</p>
       </div>
     </section>
 
     <div class="section-label b-bottom" id="capabilities">
       <span>CORE CAPABILITIES</span>
-      <span class="mono">01 // SERVICES</span>
+      <span class="mono">02 // CAPABILITIES</span>
     </div>
 
     <div class="cap-grid b-bottom">
@@ -561,12 +594,11 @@
     </div>
 
     <div class="section-label b-bottom" id="saas">
-      <span>IN-HOUSE LABS</span>
-      <span class="mono">02 // PRODUCTS</span>
+      <span>IN-HOUSE BREWS</span>
+      <span class="mono">03 // LABS</span>
     </div>
 
     <div class="saas-grid b-bottom">
-
       <div class="saas-item b-bottom">
         <div class="saas-content b-right">
           <span class="mono badge">LIVE IN PRODUCTION</span>
@@ -596,8 +628,10 @@
         <div class="saas-content">
           <span class="mono badge accent">EARLY ACCESS / BETA</span>
           <h3>Tape</h3>
-          <p>High-performance asynchronous video messaging. A heavy-lifting architecture handling complex video
-            encoding, low-latency streaming, and optimised cloud storage natively.</p>
+          <p>Privacy focused screen sharing videos. Summarised and annotated by bleeding-edge AI technology, Tape is a
+            cost-effective,
+            high-performance and private screen-sharing competitor to Loom, but at a fraction of the price and you
+            always own and control your content.</p>
           <a href="#" target="_blank" class="btn btn-outline"
             style="border-color: var(--accent); color: var(--accent);">Request Early Access</a>
         </div>
