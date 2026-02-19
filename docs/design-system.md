@@ -19,14 +19,15 @@ engineer who understands deep structural systems and scalability.
 
 The site uses a strict "Subdued Light Theme." It relies on high contrast between the background and text, using visible grid lines to create structure, and exactly _one_ accent color to draw the eye without overwhelming the layout.
 
-| Color Name           | Hex Code  | CSS Variable | Usage                                                                                                                              |
-| :------------------- | :-------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------- |
-| **Bone / Off-White** | `#F4F3EF` | `--bg`       | The primary canvas. Warm enough to reduce eye strain, stark enough to feel like high-quality drafting paper.                       |
-| **Heavy Charcoal**   | `#1C1B1A` | `--text`     | Primary text, heavy headings, buttons, and solid blocks. Avoid absolute black (`#000000`) to prevent harsh screen glare.           |
-| **Blueprint Grey**   | `#C8C6BC` | `--border`   | Used strictly for the `1px solid` structural grid lines that map out the page architecture.                                        |
-| **Muted Rust**       | `#B85038` | `--accent`   | A subtle nod to the "Brew" (coffee/heat). Used sparingly for hover states, critical CTAs, Beta badges, and pulsing SVG data nodes. |
-| **Warm Grey**        | `#EBEAE4` | `--hover`    | Used for card hover states, visual containers, and massive CTA backgrounds to create depth without using shadows.                  |
-| **Image Base**       | `#D9D8D0` | `N/A`        | The required background color placed strictly behind grayscale portraits for CSS blending.                                         |
+| Color Name           | Hex Code  | CSS Variable      | Usage                                                                                                                              |
+| :------------------- | :-------- | :---------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| **Bone / Off-White** | `#F4F3EF` | `--bg`            | The primary canvas. Warm enough to reduce eye strain, stark enough to feel like high-quality drafting paper.                       |
+| **Heavy Charcoal**   | `#1C1B1A` | `--text`          | Primary text, heavy headings, buttons, and solid blocks. Avoid absolute black (`#000000`) to prevent harsh screen glare.           |
+| **Blueprint Grey**   | `#C8C6BC` | `--border`        | Used strictly for the `1px solid` structural grid lines that map out the page architecture.                                        |
+| **Muted Rust**       | `#B85038` | `--accent`        | A subtle nod to the "Brew" (coffee/heat). Used sparingly for hover states, critical CTAs, Beta badges, and pulsing SVG data nodes. |
+| **Warm Grey**        | `#EBEAE4` | `--hover`         | Used for card hover states, visual containers, and massive CTA backgrounds to create depth without using shadows.                  |
+| **Image Base**       | `#D9D8D0` | `N/A`             | The required background color placed strictly behind grayscale portraits for CSS blending.                                         |
+| **Softened Text**    | `#444`    | `--softened-text` | Paragraph text, often softened to contrast with the heavy charcoal headings.                                                       |
 
 ---
 
@@ -70,7 +71,8 @@ The layout relies on native CSS Grid and Flexbox to create a literal "blueprint"
 - **Visible Borders:** Elements do not "float." They are separated by explicit borders (`border-bottom`, `border-right`) matching the
   `--border` color. There are no invisible margins separating major sections; everything touches a physical grid line.
 - **Asymmetry:** Grids are rarely 50/50. They are usually `1.2fr 0.8fr` (or vice versa) to create an editorial, magazine-like tension.
-- **Fluid Padding:** Negative space is a premium asset. Elements sit strictly within their border-defined grid cells, utilizing massive viewport-based padding (e.g., `8vw 2.5rem`) to let the heavy typography breathe on large monitors.
+- **Fluid Padding:** Negative space is a premium asset. Elements sit strictly within their border-defined grid cells, utilizing massive
+  viewport-based padding (e.g., `8vw 2.5rem`) to let the heavy typography breathe on large monitors.
 - **Sharp Edges Only:** `border-radius: 0;` across the board. The only exception is small, pill-shaped `.badge` elements.
 
 ---
@@ -119,7 +121,8 @@ distracting the user from the copy. If it catches the eye instantly, it's too fa
 - **Slow Rotation:** Geometric shapes rotating on a massive loop.
 - _CSS:_ `animation: rotate 30s linear infinite;`
 
-- **Hover States:** Button hovers are instantaneous color inversions. Card hovers are a simple, instant background color shift to `var(--hover)`, grounding the interaction without using drop-shadows.
+- **Hover States:** Button hovers are instantaneous color inversions. Card hovers are a simple, instant background color shift to
+  `var(--hover)`, grounding the interaction without using drop-shadows.
 
 ---
 
@@ -155,8 +158,10 @@ When writing new pages, case studies, or blog posts, adhere to these voice guide
 
 - **Authoritative & Direct:** Cut the corporate fluff. Use short, punchy sentences. (e.g., "Enterprise-grade infrastructure. We don't just advise—we build.")
 - **Show 'Skin in the Game':** Constantly reinforce that you are an engineer who writes code and deploys real products natively, not just an armchair advisor.
-- **Technical but Pragmatic:** Use exact engineering terminology (GCP, CI/CD, Asynchronous, Low-latency) to signal competence to other engineers, but frame the _outcomes_ so business leaders understand the value (scale, reliability, high-availability).
-- **Code as Punctuation:** Use technical syntax like double slashes `//` or brackets `[ ]` in small monospace text to frame sections (e.g., `[ 01 ] INFRA`, `SYS.ARCH // CONSULTANCY`).
+- **Technical but Pragmatic:** Use exact engineering terminology (GCP, CI/CD, Asynchronous, Low-latency) to signal competence to other
+  engineers, but frame the _outcomes_ so business leaders understand the value (scale, reliability, high-availability).
+- **Code as Punctuation:** Use technical syntax like double slashes `//` or brackets `[ ]` in small monospace text to frame sections (e.g.,
+  `[ 01 ] INFRA`, `SYS.ARCH // CONSULTANCY`).
 - **Avoid Clichés:** Never use words like "synergy," "digital transformation," or "innovative solutions." Stick to raw, undeniable
   capabilities.
 
@@ -167,6 +172,8 @@ When writing new pages, case studies, or blog posts, adhere to these voice guide
 If you add new pages (e.g., `/case-studies`), adhere strictly to this formula:
 
 1. **Maintain the Grid:** Ensure the outer `.container` and `1px` internal borders remain continuous. Never break the grid.
-2. **Zero Dependencies:** Stick to vanilla HTML and CSS Grid/Flexbox whenever possible. The speed, purity, and 100/100 Lighthouse score of the code is a testament to your engineering standards.
+2. **Zero Dependencies:** Stick to vanilla HTML and CSS Grid/Flexbox whenever possible. The speed, purity, and 100/100 Lighthouse score of
+   the code is a testament to your engineering standards.
 3. **Semantic HTML:** Use proper `<header>`, `<nav>`, `<section>`, and `<footer>` tags for accessibility and SEO.
-4. **Mobile Breakdown:** On screens under `1024px`, collapse CSS Grids to `1fr` (single column), and swap `border-right` for `border-bottom` so the blueprint lines stack horizontally like a ladder.
+4. **Mobile Breakdown:** On screens under `1024px`, collapse CSS Grids to `1fr` (single column), and swap `border-right` for `border-bottom`
+   so the blueprint lines stack horizontally like a ladder.
