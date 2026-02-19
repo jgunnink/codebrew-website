@@ -49,7 +49,7 @@ h3,
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #555;
+  color: var(--softened-text);
 }
 
 a {
@@ -125,7 +125,7 @@ nav {
 .hero-content p {
   font-size: clamp(1.1rem, 1.5vw, 1.3rem);
   max-width: 600px;
-  color: #444;
+  color: var(--softened-text);
 }
 
 /* Living Wireframe Visuals */
@@ -154,6 +154,16 @@ nav {
 @keyframes rotate {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes hover {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
   }
 }
 
@@ -193,7 +203,7 @@ nav {
 
 .phil-content p {
   font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-  color: #444;
+  color: var(--softened-text);
   max-width: 650px;
   margin-bottom: 1.5rem;
 }
@@ -208,7 +218,7 @@ nav {
 }
 
 .section-label .mono {
-  color: #888;
+  color: var(--softened-text);
 }
 
 /* Capabilities Grid */
@@ -239,7 +249,7 @@ nav {
 
 .cap-card p {
   font-size: 1.05rem;
-  color: #555;
+  color: var(--softened-text);
 }
 
 /* SaaS Section */
@@ -267,7 +277,7 @@ nav {
 
 .saas-content p {
   font-size: 1.15rem;
-  color: #444;
+  color: var(--softened-text);
   margin-bottom: 2.5rem;
   max-width: 500px;
 }
@@ -348,6 +358,20 @@ nav {
   color: var(--accent);
 }
 
+/* Utilities */
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.mb-2 {
+  margin-bottom: 2rem;
+}
+.mt-1 {
+  margin-top: 1rem;
+}
+.accent-text {
+  color: var(--accent);
+}
+
 /* --- NEW: Hero Credential Styling --- */
 .gde-badge {
   position: relative;
@@ -407,68 +431,11 @@ nav {
   filter: grayscale(0%) opacity(1);
 }
 
-/* Mobile Fixes for the Logo Strip */
-@media (max-width: 1024px) {
-  .logo-strip {
-    flex-direction: column;
-  }
-
-  .logo-label {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-    justify-content: center;
-  }
-
-  .logo-track {
-    justify-content: center;
-    gap: 3rem;
-  }
-}
-
 /* Footer */
 footer {
   padding: 2rem 2.5rem;
   display: flex;
   justify-content: space-between;
-}
-
-/* --- TRUST STRIP (LOGOS) --- */
-.logo-strip {
-  display: flex;
-  background: var(--bg);
-}
-
-.logo-label {
-  padding: 2rem 2.5rem;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-}
-
-.logo-track {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 4rem;
-  padding: 2rem 3.5rem;
-  width: 100%;
-}
-
-.client-logo {
-  height: 35px;
-  width: auto;
-  object-fit: contain;
-  /* Turns colorful logos into subtle blueprint stamps */
-  filter: grayscale(100%) opacity(0.35);
-  transition:
-    filter 0.3s ease,
-    opacity 0.3s ease;
-}
-
-.client-logo:hover {
-  /* Restores full color on hover */
-  filter: grayscale(0%) opacity(1);
 }
 
 /* --- CREDENTIALS GRID --- */
@@ -512,7 +479,7 @@ footer {
 
 .gde-feature p {
   font-size: 1.15rem;
-  color: #444;
+  color: var(--softened-text);
   max-width: 600px;
 }
 
