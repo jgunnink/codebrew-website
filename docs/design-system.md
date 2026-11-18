@@ -24,7 +24,7 @@ The site uses a strict "Subdued Light Theme." It relies on high contrast between
 | **Bone / Off-White** | `#F4F3EF` | `--bg`            | The primary canvas. Warm enough to reduce eye strain, stark enough to feel like high-quality drafting paper.                       |
 | **Heavy Charcoal**   | `#1C1B1A` | `--text`          | Primary text, heavy headings, buttons, and solid blocks. Avoid absolute black (`#000000`) to prevent harsh screen glare.           |
 | **Blueprint Grey**   | `#C8C6BC` | `--border`        | Used strictly for the `1px solid` structural grid lines that map out the page architecture.                                        |
-| **Muted Rust**       | `#B85038` | `--accent`        | A subtle nod to the "Brew" (coffee/heat). Used sparingly for hover states, critical CTAs, Beta badges, and pulsing SVG data nodes. |
+| **Muted Rust**       | `#A84630` | `--accent`        | A subtle nod to the "Brew" (coffee/heat). Used sparingly for hover states, critical CTAs, Beta badges, and pulsing SVG data nodes. |
 | **Warm Grey**        | `#EBEAE4` | `--hover`         | Used for card hover states, visual containers, and massive CTA backgrounds to create depth without using shadows.                  |
 | **Image Base**       | `#D9D8D0` | `N/A`             | The required background color placed strictly behind grayscale portraits for CSS blending.                                         |
 | **Softened Text**    | `#444`    | `--softened-text` | Paragraph text, often softened to contrast with the heavy charcoal headings.                                                       |
@@ -39,7 +39,7 @@ monospace accents. All fonts are served via Google Fonts.
 ### 1. Primary Display (Headings)
 
 - **Font:** `Space Grotesk`
-- **Weights:** 500 (Medium), 700 (Bold)
+- **Weights:** 700 (Bold)
 - **Styling:** ALWAYS `text-transform: uppercase`. Tightly tracked (`letter-spacing: -0.04em`) and compressed line height
   (`line-height: 0.95`).
 - **Usage:** `h1`, `h2`, `h3`, massive CTA text, and the Brand Logo. It should feel like massive concrete blocks of text.
@@ -47,7 +47,7 @@ monospace accents. All fonts are served via Google Fonts.
 ### 2. Body Copy
 
 - **Font:** `Inter`
-- **Weights:** 400 (Regular), 500 (Medium)
+- **Weights:** 400 (Regular), 700 (Bold)
 - **Styling:** Standard sentence case. Generous line height (`line-height: 1.6`) for maximum readability. Max-width on paragraphs should
   ideally not exceed `700px` to maintain optimal reading lengths.
 - **Usage:** `<p>`, general descriptions, long-form copy. Often softened to `#444` to contrast with the heavy charcoal headings.
@@ -73,7 +73,7 @@ The layout relies on native CSS Grid and Flexbox to create a literal "blueprint"
 - **Asymmetry:** Grids are rarely 50/50. They are usually `1.2fr 0.8fr` (or vice versa) to create an editorial, magazine-like tension.
 - **Fluid Padding:** Negative space is a premium asset. Elements sit strictly within their border-defined grid cells, utilizing massive
   viewport-based padding (e.g., `8vw 2.5rem`) to let the heavy typography breathe on large monitors.
-- **Sharp Edges Only:** `border-radius: 0;` across the board. The only exception is small, pill-shaped `.badge` elements.
+- **Sharp Edges Only:** `border-radius: 0;` across the board. Exceptions are small, pill-shaped `.badge` elements and `.gde-badge-img` (matching Google's rounded PNG badge asset).
 
 ---
 
