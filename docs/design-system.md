@@ -156,7 +156,7 @@ the left and a `.mono` numeric identifier on the right (e.g., `01 // SERVICES`).
 
 When writing new pages, case studies, or blog posts, adhere to these voice guidelines:
 
-- **Authoritative & Direct:** Cut the corporate fluff. Use short, punchy sentences. (e.g., "Enterprise-grade infrastructure. We don't just advise—we build.")
+- **Authoritative & Direct:** Cut the corporate fluff. Use short, punchy sentences in first-person `"I"` voice (e.g., "Enterprise-grade infrastructure. I don't just advise. I build.").
 - **Show 'Skin in the Game':** Constantly reinforce that you are an engineer who writes code and deploys real products natively, not just an armchair advisor.
 - **Technical but Pragmatic:** Use exact engineering terminology (GCP, CI/CD, Asynchronous, Low-latency) to signal competence to other
   engineers, but frame the _outcomes_ so business leaders understand the value (scale, reliability, high-availability).
@@ -172,7 +172,7 @@ When writing new pages, case studies, or blog posts, adhere to these voice guide
 If you add new pages (e.g., `/case-studies`), adhere strictly to this formula:
 
 1. **Maintain the Grid:** Ensure the outer `.container` and `1px` internal borders remain continuous. Never break the grid.
-2. **Zero Dependencies:** Stick to vanilla HTML and CSS Grid/Flexbox whenever possible. The speed, purity, and 100/100 Lighthouse score of
+2. **Zero Dependencies:** Stick to vanilla HTML, CSS Grid/Flexbox, and progressive-enhancement vanilla JS (`js/main.js` clipboard copy) whenever possible. The speed, purity, and 100/100 Lighthouse score of
    the code is a testament to your engineering standards.
 3. **Semantic HTML:** Use proper `<header>`, `<nav>`, `<section>`, and `<footer>` tags for accessibility and SEO.
 4. **Mobile Breakdown:** On screens under `1024px`, collapse CSS Grids to `1fr` (single column), and swap `border-right` for `border-bottom`

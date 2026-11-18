@@ -286,7 +286,14 @@ nav {
   justify-content: center;
 }
 
-.phil-content h2 {
+.phil-eyebrow {
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.phil-content h2,
+.phil-heading {
   font-size: clamp(2.5rem, 5vw, 5rem);
   margin-bottom: 2rem;
 }
@@ -296,6 +303,27 @@ nav {
   color: var(--softened-text);
   max-width: 650px;
   margin-bottom: 1.5rem;
+}
+
+.phil-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.phil-links a {
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.2rem;
+  min-block-size: 24px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.phil-links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* Section Labels */
@@ -501,6 +529,98 @@ nav {
   color: var(--accent);
 }
 
+.contact-direct {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.contact-email {
+  font-size: 0.9rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.15rem;
+  min-block-size: 24px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.contact-email:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.copy {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-inline-size: 24px;
+  min-block-size: 28px;
+  padding: 0.3rem 0.65rem;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--text);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.copy-button:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.copy-button[data-copied] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--bg);
+}
+
+.copy-icon {
+  flex-shrink: 0;
+}
+
+.copy-icon-check {
+  display: none;
+}
+
+.copy-button[data-copied] .copy-icon-default {
+  display: none;
+}
+
+.copy-button[data-copied] .copy-icon-check {
+  display: block;
+}
+
+.copy-tip {
+  position: absolute;
+  inset-inline-start: calc(100% + 0.5rem);
+  white-space: nowrap;
+  padding: 0.2rem 0.5rem;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.7rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.copy-button[data-copied] + .copy-tip,
+.copy-button[data-failed] + .copy-tip {
+  opacity: 1;
+}
+
 /* Utilities */
 .mb-1 {
   margin-bottom: 1rem;
@@ -555,6 +675,33 @@ footer {
   padding: 2rem 2.5rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.footer-sep {
+  color: var(--border);
+}
+
+.footer-group a {
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  min-block-size: 24px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-group a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* --- CREDENTIALS GRID --- */
@@ -792,11 +939,21 @@ footer {
     justify-content: center;
   }
 
+  .copy-tip {
+    inset-inline-start: 50%;
+    inset-block-start: calc(100% + 0.4rem);
+    transform: translateX(-50%);
+  }
+
   footer {
     padding: 1.5rem;
     flex-direction: column;
     gap: 0.5rem;
     align-items: center;
     text-align: center;
+  }
+
+  .footer-group {
+    justify-content: center;
   }
 }

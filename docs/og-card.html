@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200, initial-scale=1.0">
+  <title>Code Brew Studio OG Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@700&family=Space+Mono&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f3ef;
+      --text: #1c1b1a;
+      --softened-text: #444;
+      --border: #c8c6bc;
+      --accent: #a84630;
+      --hover: #ebeae4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding: 24px;
+      display: flex;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transform: translateY(2px);
+    }
+
+    .brand {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 0.85;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-family: "Space Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--softened-text);
+      margin-top: 5px;
+    }
+
+    .meta-tag {
+      font-family: "Space Mono", monospace;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--softened-text);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .left {
+      border-right: 1px solid var(--border);
+      padding: 44px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .eyebrow {
+      font-family: "Space Mono", monospace;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 78px;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-top: 18px;
+    }
+
+    .desc {
+      font-size: 20px;
+      line-height: 1.45;
+      color: var(--softened-text);
+      max-width: 560px;
+    }
+
+    .domain {
+      font-family: "Space Mono", monospace;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-top: 16px;
+    }
+
+    .right {
+      background: var(--hover);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.5;
+    }
+
+    .hero-svg {
+      position: relative;
+      z-index: 1;
+      overflow: visible;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="top-bar">
+      <div class="brand-lockup">
+        <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 17 20 L 23 8 M 25 20 L 31 8" stroke="#a84630" stroke-width="2.5" stroke-linecap="square" />
+          <path d="M 10 18 L 10 34 L 32 34 L 32 18" stroke="#1c1b1a" stroke-width="2.5" stroke-linecap="square"
+            stroke-linejoin="miter" />
+          <path d="M 15 24 L 18 26.5 L 15 29" stroke="#1c1b1a" stroke-width="2" stroke-linecap="square"
+            stroke-linejoin="miter" />
+          <line x1="21" y1="29" x2="27" y2="29" stroke="#1c1b1a" stroke-width="2" />
+        </svg>
+        <div class="brand-text">
+          <span class="brand">CODE BREW</span>
+          <span class="brand-sub">// STUDIO</span>
+        </div>
+      </div>
+      <span class="meta-tag">SYS.ARCH // WESTERN AUSTRALIA</span>
+    </div>
+
+    <div class="main-grid">
+      <div class="left">
+        <div>
+          <span class="eyebrow">JK GUNNINK // GOOGLE CLOUD GDE</span>
+          <h1>ENGINEERED<br>FOR SCALE.</h1>
+        </div>
+        <div>
+          <p class="desc">Google Cloud architecture, bespoke software engineering, and hands-on technical leadership.</p>
+          <p class="domain">CODEBREW.AU</p>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="grid-bg"></div>
+        <svg width="260" height="260" viewBox="0 0 100 100" class="hero-svg">
+          <g>
+            <path d="M50 75 L80 60 L50 45 L20 60 Z" fill="#f4f3ef" stroke="#1c1b1a" stroke-width="0.5" />
+            <path d="M20 60 L20 65 L50 80 L80 65 L80 60" fill="none" stroke="#1c1b1a" stroke-width="0.5" />
+          </g>
+          <g>
+            <path d="M50 60 L80 45 L50 30 L20 45 Z" fill="#a84630" stroke="#1c1b1a" stroke-width="0.5"
+              opacity="0.1" />
+            <path d="M50 60 L80 45 L50 30 L20 45 Z" fill="none" stroke="#1c1b1a" stroke-width="0.5" />
+            <path d="M20 45 L20 50 L50 65 L80 50 L80 45" fill="none" stroke="#1c1b1a" stroke-width="0.5" />
+          </g>
+          <g>
+            <path d="M50 45 L80 30 L50 15 L20 30 Z" fill="#f4f3ef" stroke="#a84630" stroke-width="0.5" />
+            <path d="M20 30 L20 35 L50 50 L80 35 L80 30" fill="none" stroke="#a84630" stroke-width="0.5" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
