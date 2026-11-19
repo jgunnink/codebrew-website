@@ -1,0 +1,33 @@
+baseURL = "https://codebrew.au/"
+languageCode = "en-AU"
+title = "Code Brew Studio"
+enableRobotsTXT = false
+
+[params]
+  siteName = "Code Brew Studio"
+  legalName = "Code Brew Studio Pty Ltd"
+  abn = "57 678 003 248"
+  email = "hello@codebrew.au"
+  author = "JK Gunnink"
+  authorTitle = "Principal Cloud Architect & Google Developer Expert"
+  defaultDescription = "JK Gunnink (Code Brew Studio): Google Cloud architecture, bespoke software engineering, and technical leadership from WA's only Google Cloud Expert."
+  ogImage = "/og-card.png"
+  ogImageAlt = "Code Brew Studio: Engineered for Scale. JK Gunnink, Google Cloud GDE in Western Australia."
+  linkedinCompany = "https://www.linkedin.com/company/code-brew-studio"
+  linkedinPerson = "https://www.linkedin.com/in/jkgunnink"
+  githubPerson = "https://github.com/jgunnink"
+
+[taxonomies]
+  category = "categories"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false
+
+[outputs]
+  home = ["HTML"]
+  section = ["HTML", "RSS"]
+  page = ["HTML"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]

@@ -1,0 +1,98 @@
+{{ define "main" }}
+{{- $isTerm := eq .Kind "term" -}}
+{{- $allNews := where .Site.RegularPages "Section" "news" -}}
+{{- $categories := .Site.Taxonomies.categories -}}
+
+<section class="page-header b-bottom" aria-labelledby="news-list-heading">
+  <span class="mono accent-text">
+    {{- if $isTerm -}}
+      NEWS // CATEGORY // {{ .Title }}
+    {{- else -}}
+      05 // NEWS &amp; UPDATES
+    {{- end -}}
+  </span>
+  <h1 id="news-list-heading">
+    {{- if $isTerm -}}
+      {{ .Title }}.
+    {{- else -}}
+      NEWS &amp;<br>FIELD NOTES.
+    {{- end -}}
+  </h1>
+  <p>
+    {{- if $isTerm -}}
+      Updates, talks, and work filed under {{ .Title }}.
+    {{- else -}}
+      Speaking engagements, open-source tools, Google Cloud architecture notes, and what I'm building at Code Brew Studio.
+    {{- end -}}
+  </p>
+</section>
+
+{{- if gt (len $categories) 0 }}
+<nav class="news-filter-bar b-bottom" aria-label="Filter news by category">
+  <a href="/news" class="mono news-filter-pill{{ if not $isTerm }} is-active{{ end }}">
+    All ({{ len $allNews }})
+  </a>
+  {{- range $name, $taxonomy := $categories }}
+  {{- $termPage := $taxonomy.Page }}
+  {{- $termUrl := strings.TrimSuffix "/" $termPage.RelPermalink }}
+  <a href="{{ $termUrl }}" class="mono news-filter-pill{{ if and $isTerm (eq $.RelPermalink $termPage.RelPermalink) }} is-active{{ end }}">
+    {{ $termPage.Title }} ({{ len $taxonomy }})
+  </a>
+  {{- end }}
+</nav>
+{{- end }}
+
+{{- if gt (len .Pages) 0 }}
+<section class="news-list" aria-label="News entries">
+  {{- range .Pages }}
+  {{- $entry := . }}
+  {{- $entryUrl := strings.TrimSuffix "/" .RelPermalink }}
+  <article class="news-row b-bottom">
+    <div class="news-row-meta b-right">
+      <time class="mono" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+      {{- with .Params.categories }}
+      <div class="news-badges">
+        {{- range . }}
+        <span class="mono badge accent">{{ . }}</span>
+        {{- end }}
+      </div>
+      {{- end }}
+      {{- with .Params.event }}
+      <span class="mono news-event">{{ . }}{{ with $entry.Params.location }} // {{ . }}{{ end }}</span>
+      {{- end }}
+    </div>
+
+    <div class="news-row-body">
+      <h2><a href="{{ $entryUrl }}">{{ .Title }}</a></h2>
+      {{- with .Params.summary }}
+      <p>{{ . }}</p>
+      {{- else }}
+      <p>{{ .Summary }}</p>
+      {{- end }}
+      <div class="news-row-actions mono">
+        <a href="{{ $entryUrl }}" class="news-read-link">READ ENTRY &rarr;</a>
+        {{- if .Params.externalUrl }}
+        <a href="{{ .Params.externalUrl }}" target="_blank" rel="noopener" class="news-ext-link">
+          {{ default "EXTERNAL LINK" .Params.externalLabel }} &nearr;
+        </a>
+        {{- end }}
+      </div>
+    </div>
+  </article>
+  {{- end }}
+</section>
+{{- else }}
+<section class="news-empty b-bottom">
+  <span class="mono accent-text">STATUS // STANDING BY</span>
+  <h2>UPDATES INCOMING.</h2>
+  <p>Talks, open-source releases, and Google Cloud field notes will be published here shortly.</p>
+  <a href="/" class="btn btn-outline">Back to Overview</a>
+</section>
+{{- end }}
+
+<section class="cta cta-compact b-bottom" aria-labelledby="news-cta-heading">
+  <span class="mono mb-2 accent-text">GET IN TOUCH</span>
+  <h2 id="news-cta-heading">NEED CLOUD OR<br>TECH LEADERSHIP?</h2>
+  <a href="/#contact" class="btn btn-massive">Initiate Consultation</a>
+</section>
+{{ end }}

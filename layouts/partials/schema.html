@@ -1,0 +1,71 @@
+{{- $page := .Page -}}
+{{- $site := $page.Site -}}
+{{- if $page.IsHome -}}
+{{- $schema := dict
+  "@context" "https://schema.org"
+  "@type" "ProfessionalService"
+  "@id" (printf "%s#organisation" $site.BaseURL)
+  "name" $site.Params.siteName
+  "legalName" $site.Params.legalName
+  "taxID" $site.Params.abn
+  "url" $site.BaseURL
+  "image" .OgImage
+  "email" $site.Params.email
+  "description" .Description
+  "founder" (dict
+    "@type" "Person"
+    "@id" (printf "%s#founder" $site.BaseURL)
+    "name" $site.Params.author
+    "jobTitle" $site.Params.authorTitle
+    "sameAs" (slice $site.Params.linkedinPerson $site.Params.githubPerson)
+  )
+  "sameAs" (slice $site.Params.linkedinCompany $site.Params.githubPerson)
+  "areaServed" "AU"
+  "address" (dict
+    "@type" "PostalAddress"
+    "addressLocality" "Perth"
+    "addressRegion" "WA"
+    "addressCountry" "AU"
+  )
+-}}
+<script type="application/ld+json">
+{{ $schema | jsonify (dict "indent" "  ") | safeJS }}
+</script>
+{{- else if and $page.IsPage (eq $page.Section "news") -}}
+{{- $schema := dict
+  "@context" "https://schema.org"
+  "@type" "BlogPosting"
+  "headline" $page.Title
+  "description" .Description
+  "url" .Canonical
+  "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Canonical)
+  "image" .OgImage
+  "datePublished" ($page.Date.Format "2006-01-02T15:04:05Z07:00")
+  "dateModified" ($page.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+  "inLanguage" "en-AU"
+  "author" (dict
+    "@type" "Person"
+    "@id" (printf "%s#founder" $site.BaseURL)
+    "name" $site.Params.author
+    "jobTitle" $site.Params.authorTitle
+    "url" $site.BaseURL
+    "sameAs" (slice $site.Params.linkedinPerson $site.Params.githubPerson)
+  )
+  "publisher" (dict
+    "@type" "Organization"
+    "@id" (printf "%s#organisation" $site.BaseURL)
+    "name" $site.Params.siteName
+    "url" $site.BaseURL
+    "logo" (dict
+      "@type" "ImageObject"
+      "url" (printf "%slogo.svg" $site.BaseURL)
+    )
+  )
+-}}
+{{- with $page.Params.categories -}}
+  {{- $schema = merge $schema (dict "articleSection" (index . 0) "keywords" (delimit . ", ")) -}}
+{{- end -}}
+<script type="application/ld+json">
+{{ $schema | jsonify (dict "indent" "  ") | safeJS }}
+</script>
+{{- end -}}
