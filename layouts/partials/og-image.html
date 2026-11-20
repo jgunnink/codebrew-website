@@ -13,7 +13,7 @@
 
 {{- $resolved := false -}}
 
-{{- /* 1. Explicit ogImage front matter */ -}}
+{{- /* 1. Explicit ogImage front matter override */ -}}
 {{- with .Params.ogImage -}}
   {{- $res := $.Resources.GetMatch . -}}
   {{- if $res -}}
@@ -45,9 +45,18 @@
   {{- end -}}
 {{- end -}}
 
-{{- /* 3. Auto-generated branded OG card for /news posts */ -}}
+{{- /* 3. Auto-generated branded OG card for /news posts (with optional hero photo) */ -}}
 {{- if and (not $resolved) .IsPage (eq .Section "news") -}}
-  {{- $base := resources.Get "og/base.png" -}}
+  {{- $heroImg := false -}}
+  {{- with .Params.image -}}
+    {{- $res := $.Resources.GetMatch . -}}
+    {{- if and $res (ne $res.MediaType.SubType "svg") -}}
+      {{- $heroImg = $res -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $basePath := cond (not (not $heroImg)) "og/base-photo.png" "og/base.png" -}}
+  {{- $base := resources.Get $basePath -}}
   {{- $fontBold := resources.Get "fonts/SpaceGrotesk-Bold.ttf" -}}
   {{- $fontMono := resources.Get "fonts/SpaceMono-Regular.ttf" -}}
   {{- $fontBody := resources.Get "fonts/Inter-Regular.ttf" -}}
@@ -58,14 +67,26 @@
     {{- end -}}
     {{- $eyebrow := printf "%s // %s" $cat (upper (.Date.Format "02 Jan 2006")) -}}
 
-    {{- /* Word-wrap title cleanly to fit within the left panel (840px) */ -}}
+    {{- /* Adjust text measure depending on whether a right-hand hero photo is present */ -}}
     {{- $rawTitle := upper .Title -}}
     {{- $titleSize := 56 -}}
     {{- $maxChars := 23 -}}
-    {{- if gt (len $rawTitle) 55 -}}
+    {{- $summarySize := 24 -}}
+    {{- $summaryMaxChars := 56 -}}
+    {{- if $heroImg -}}
+      {{- $titleSize = 48 -}}
+      {{- $maxChars = 19 -}}
+      {{- $summarySize = 22 -}}
+      {{- $summaryMaxChars = 44 -}}
+      {{- if gt (len $rawTitle) 48 -}}
+        {{- $titleSize = 40 -}}
+        {{- $maxChars = 23 -}}
+      {{- end -}}
+    {{- else if gt (len $rawTitle) 55 -}}
       {{- $titleSize = 46 -}}
       {{- $maxChars = 28 -}}
     {{- end -}}
+
     {{- $titleWords := split $rawTitle " " -}}
     {{- $titleLines := slice -}}
     {{- $cur := "" -}}
@@ -87,7 +108,6 @@
     {{- end -}}
     {{- $wrappedTitle := delimit $titleLines "\n" -}}
 
-    {{- /* Optional summary wrapped to 2 lines */ -}}
     {{- $rawSummary := "" -}}
     {{- with .Params.summary -}}
       {{- $rawSummary = . -}}
@@ -102,7 +122,7 @@
     {{- range $summaryWords -}}
       {{- if eq $scur "" -}}
         {{- $scur = . -}}
-      {{- else if le (add (len $scur) (add 1 (len .))) 56 -}}
+      {{- else if le (add (len $scur) (add 1 (len .))) $summaryMaxChars -}}
         {{- $scur = printf "%s %s" $scur . -}}
       {{- else -}}
         {{- $summaryLines = $summaryLines | append $scur -}}
@@ -118,7 +138,16 @@
     {{- end -}}
     {{- $wrappedSummary := delimit $summaryLines "\n" -}}
 
-    {{- $filters := slice
+    {{- $filters := slice -}}
+    {{- if $heroImg -}}
+      {{- $cropped := $heroImg.Fill "414x431 Smart" -}}
+      {{- if eq .Params.imageTone "editorial" -}}
+        {{- $cropped = $cropped | images.Filter images.Grayscale -}}
+      {{- end -}}
+      {{- $filters = $filters | append (images.Overlay $cropped 761 105) -}}
+    {{- end -}}
+
+    {{- $filters = $filters | append
       (images.Text $eyebrow (dict
         "color" "#a84630"
         "size" 19
@@ -138,7 +167,7 @@
     {{- if ne $wrappedSummary "" -}}
       {{- $filters = $filters | append (images.Text $wrappedSummary (dict
         "color" "#444444"
-        "size" 24
+        "size" $summarySize
         "linespacing" 10
         "x" 64
         "y" 432
