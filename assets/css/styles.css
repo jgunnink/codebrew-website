@@ -1173,10 +1173,14 @@ footer {
 }
 
 .prose-figure {
-  margin: 2rem 0;
+  margin: 2rem auto;
+  display: table;
+  max-width: 100%;
 }
 
 .prose-figure figcaption {
+  display: table-caption;
+  caption-side: bottom;
   margin-top: 0.65rem;
   color: var(--softened-text);
 }
