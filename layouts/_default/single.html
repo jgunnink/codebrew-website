@@ -12,44 +12,46 @@
 
 <article class="news-article">
   <header class="news-article-header b-bottom">
-    {{- with .Params.categories }}
-    <div class="news-badges mb-1">
-      {{- range . }}
-      {{- $termPage := $.Site.GetPage (printf "/categories/%s" (urlize .)) }}
-      {{- if $termPage }}
-      <a href="{{ strings.TrimSuffix "/" $termPage.RelPermalink }}" class="mono badge accent">{{ . }}</a>
-      {{- else }}
-      <span class="mono badge accent">{{ . }}</span>
+    <div class="news-article-header-inner">
+      {{- with .Params.categories }}
+      <div class="news-badges mb-1">
+        {{- range . }}
+        {{- $termPage := $.Site.GetPage (printf "/categories/%s" (urlize .)) }}
+        {{- if $termPage }}
+        <a href="{{ strings.TrimSuffix "/" $termPage.RelPermalink }}" class="mono badge accent">{{ . }}</a>
+        {{- else }}
+        <span class="mono badge accent">{{ . }}</span>
+        {{- end }}
+        {{- end }}
+      </div>
       {{- end }}
+
+      <h1>{{ .Title }}</h1>
+
+      {{- with .Params.summary }}
+      <p class="news-article-lead">{{ . }}</p>
+      {{- end }}
+
+      <div class="news-article-byline mono">
+        <span>BY {{ .Site.Params.author }}</span>
+        <span class="news-meta-sep" aria-hidden="true">//</span>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+        <span class="news-meta-sep" aria-hidden="true">//</span>
+        <span>{{ .ReadingTime }} MIN READ</span>
+        {{- with .Params.event }}
+        <span class="news-meta-sep" aria-hidden="true">//</span>
+        <span>{{ . }}{{ with $.Params.location }}, {{ . }}{{ end }}</span>
+        {{- end }}
+      </div>
+
+      {{- if .Params.externalUrl }}
+      <div class="news-article-ext">
+        <a href="{{ .Params.externalUrl }}" target="_blank" rel="noopener" class="btn">
+          {{ default "View Resource" .Params.externalLabel }} &nearr;
+        </a>
+      </div>
       {{- end }}
     </div>
-    {{- end }}
-
-    <h1>{{ .Title }}</h1>
-
-    {{- with .Params.summary }}
-    <p class="news-article-lead">{{ . }}</p>
-    {{- end }}
-
-    <div class="news-article-byline mono">
-      <span>BY {{ .Site.Params.author }}</span>
-      <span class="news-meta-sep" aria-hidden="true">//</span>
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
-      <span class="news-meta-sep" aria-hidden="true">//</span>
-      <span>{{ .ReadingTime }} MIN READ</span>
-      {{- with .Params.event }}
-      <span class="news-meta-sep" aria-hidden="true">//</span>
-      <span>{{ . }}{{ with $.Params.location }}, {{ . }}{{ end }}</span>
-      {{- end }}
-    </div>
-
-    {{- if .Params.externalUrl }}
-    <div class="news-article-ext">
-      <a href="{{ .Params.externalUrl }}" target="_blank" rel="noopener" class="btn">
-        {{ default "View Resource" .Params.externalLabel }} &nearr;
-      </a>
-    </div>
-    {{- end }}
   </header>
 
   {{- with .Params.image }}
@@ -73,12 +75,14 @@
     {{- end }}
   {{- end }}
   <figure class="news-hero-media b-bottom{{ if eq $.Params.imageTone "editorial" }} is-editorial{{ end }}">
-    <div class="news-hero-frame">
-      <img src="{{ $heroSrc }}" alt="{{ default $.Title $.Params.imageAlt }}"{{ with $heroW }} width="{{ . }}"{{ end }}{{ with $heroH }} height="{{ . }}"{{ end }} fetchpriority="high" decoding="async">
+    <div class="news-hero-inner">
+      <div class="news-hero-frame">
+        <img src="{{ $heroSrc }}" alt="{{ default $.Title $.Params.imageAlt }}"{{ with $heroW }} width="{{ . }}"{{ end }}{{ with $heroH }} height="{{ . }}"{{ end }} fetchpriority="high" decoding="async">
+      </div>
+      {{- with $.Params.imageCaption }}
+      <figcaption class="mono">{{ . }}</figcaption>
+      {{- end }}
     </div>
-    {{- with $.Params.imageCaption }}
-    <figcaption class="mono">{{ . }}</figcaption>
-    {{- end }}
   </figure>
   {{- end }}
 
