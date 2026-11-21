@@ -1,6 +1,6 @@
 ---
 title: "Example News Entry Template"
-date: 2026-11-19T09:00:00+08:00
+date: 2026-10-30T21:00:00+08:00
 draft: true
 summary: "A starter template showing how speaking engagements, open-source releases, and Google Cloud notes render on codebrew.au/news. Set draft to false when ready to publish."
 categories:
