@@ -47,6 +47,24 @@
   {{- range .Pages }}
   {{- $entry := . }}
   {{- $entryUrl := strings.TrimSuffix "/" .RelPermalink }}
+  {{- $thumbSrc := "" }}
+  {{- $thumbW := "" }}
+  {{- $thumbH := "" }}
+  {{- with .Params.image }}
+    {{- $res := $entry.Resources.GetMatch . }}
+    {{- if $res }}
+      {{- if ne $res.MediaType.SubType "svg" }}
+        {{- $processed := $res.Fill "640x400 Smart webp q85" }}
+        {{- $thumbSrc = $processed.RelPermalink }}
+        {{- $thumbW = $processed.Width }}
+        {{- $thumbH = $processed.Height }}
+      {{- else }}
+        {{- $thumbSrc = $res.RelPermalink }}
+      {{- end }}
+    {{- else }}
+      {{- $thumbSrc = . }}
+    {{- end }}
+  {{- end }}
   <article class="news-row b-bottom">
     <div class="news-row-meta b-right">
       <time class="mono" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
@@ -62,21 +80,29 @@
       {{- end }}
     </div>
 
-    <div class="news-row-body">
-      <h2><a href="{{ $entryUrl }}">{{ .Title }}</a></h2>
-      {{- with .Params.summary }}
-      <p>{{ . }}</p>
-      {{- else }}
-      <p>{{ .Summary }}</p>
-      {{- end }}
-      <div class="news-row-actions mono">
-        <a href="{{ $entryUrl }}" class="news-read-link">READ ENTRY &rarr;</a>
-        {{- if .Params.externalUrl }}
-        <a href="{{ .Params.externalUrl }}" target="_blank" rel="noopener" class="news-ext-link">
-          {{ default "EXTERNAL LINK" .Params.externalLabel }} &nearr;
-        </a>
+    <div class="news-row-body{{ if $thumbSrc }} has-thumb{{ end }}">
+      <div class="news-row-text">
+        <h2><a href="{{ $entryUrl }}">{{ .Title }}</a></h2>
+        {{- with .Params.summary }}
+        <p>{{ . }}</p>
+        {{- else }}
+        <p>{{ .Summary }}</p>
         {{- end }}
+        <div class="news-row-actions mono">
+          <a href="{{ $entryUrl }}" class="news-read-link">READ ENTRY &rarr;</a>
+          {{- if .Params.externalUrl }}
+          <a href="{{ .Params.externalUrl }}" target="_blank" rel="noopener" class="news-ext-link">
+            {{ default "EXTERNAL LINK" .Params.externalLabel }} &nearr;
+          </a>
+          {{- end }}
+        </div>
       </div>
+
+      {{- if $thumbSrc }}
+      <a href="{{ $entryUrl }}" class="news-row-thumb{{ if eq .Params.imageTone "editorial" }} is-editorial{{ end }}" aria-label="Read {{ .Title }}">
+        <img src="{{ $thumbSrc }}" alt="{{ default .Title .Params.imageAlt }}"{{ with $thumbW }} width="{{ . }}"{{ end }}{{ with $thumbH }} height="{{ . }}"{{ end }} loading="lazy" decoding="async">
+      </a>
+      {{- end }}
     </div>
   </article>
   {{- end }}
