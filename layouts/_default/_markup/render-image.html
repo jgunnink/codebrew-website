@@ -1,0 +1,32 @@
+{{- $dest := .Destination -}}
+{{- $alt := .Text -}}
+{{- $title := .Title -}}
+{{- $img := .Page.Resources.GetMatch $dest -}}
+{{- $src := $dest -}}
+{{- $width := "" -}}
+{{- $height := "" -}}
+
+{{- if $img -}}
+  {{- if ne $img.MediaType.SubType "svg" -}}
+    {{- $processed := $img -}}
+    {{- if gt $img.Width 1400 -}}
+      {{- $processed = $img.Resize "1400x webp q85" -}}
+    {{- else -}}
+      {{- $processed = $img.Process "webp q85" -}}
+    {{- end -}}
+    {{- $src = $processed.RelPermalink -}}
+    {{- $width = $processed.Width -}}
+    {{- $height = $processed.Height -}}
+  {{- else -}}
+    {{- $src = $img.RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $title -}}
+<figure class="prose-figure">
+  <img src="{{ $src }}" alt="{{ $alt }}"{{ with $width }} width="{{ . }}"{{ end }}{{ with $height }} height="{{ . }}"{{ end }} loading="lazy" decoding="async">
+  <figcaption class="mono">{{ $title }}</figcaption>
+</figure>
+{{- else -}}
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $width }} width="{{ . }}"{{ end }}{{ with $height }} height="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- end -}}

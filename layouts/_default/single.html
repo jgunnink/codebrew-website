@@ -1,0 +1,118 @@
+{{ define "main" }}
+<div class="news-topbar b-bottom mono">
+  <a href="/news" class="news-back-link">&larr; ALL NEWS</a>
+  <div class="news-topbar-meta">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+    {{- with .Params.categories }}
+    <span class="news-meta-sep" aria-hidden="true">//</span>
+    <span class="accent-text">{{ index . 0 }}</span>
+    {{- end }}
+  </div>
+</div>
+
+<article class="news-article">
+  <header class="news-article-header b-bottom">
+    <div class="news-article-header-inner">
+      {{- with .Params.categories }}
+      <div class="news-badges mb-1">
+        {{- range . }}
+        {{- $termPage := $.Site.GetPage (printf "/categories/%s" (urlize .)) }}
+        {{- if $termPage }}
+        <a href="{{ strings.TrimSuffix "/" $termPage.RelPermalink }}" class="mono badge accent">{{ . }}</a>
+        {{- else }}
+        <span class="mono badge accent">{{ . }}</span>
+        {{- end }}
+        {{- end }}
+      </div>
+      {{- end }}
+
+      <h1>{{ .Title }}</h1>
+
+      {{- with .Params.summary }}
+      <p class="news-article-lead">{{ . }}</p>
+      {{- end }}
+
+      <div class="news-article-byline mono">
+        <span>BY {{ .Site.Params.author }}</span>
+        <span class="news-meta-sep" aria-hidden="true">//</span>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+        <span class="news-meta-sep" aria-hidden="true">//</span>
+        <span>{{ .ReadingTime }} MIN READ</span>
+        {{- with .Params.event }}
+        <span class="news-meta-sep" aria-hidden="true">//</span>
+        <span>{{ . }}{{ with $.Params.location }}, {{ . }}{{ end }}</span>
+        {{- end }}
+      </div>
+
+      {{- if .Params.externalUrl }}
+      <div class="news-article-ext">
+        <a href="{{ .Params.externalUrl }}" target="_blank" rel="noopener" class="btn">
+          {{ default "View Resource" .Params.externalLabel }} &nearr;
+        </a>
+      </div>
+      {{- end }}
+    </div>
+  </header>
+
+  {{- with .Params.image }}
+  {{- $heroRes := $.Resources.GetMatch . }}
+  {{- $heroSrc := . }}
+  {{- $heroW := "" }}
+  {{- $heroH := "" }}
+  {{- if $heroRes }}
+    {{- if ne $heroRes.MediaType.SubType "svg" }}
+      {{- $processed := $heroRes }}
+      {{- if gt $heroRes.Width 1600 }}
+        {{- $processed = $heroRes.Resize "1600x webp q85" }}
+      {{- else }}
+        {{- $processed = $heroRes.Process "webp q85" }}
+      {{- end }}
+      {{- $heroSrc = $processed.RelPermalink }}
+      {{- $heroW = $processed.Width }}
+      {{- $heroH = $processed.Height }}
+    {{- else }}
+      {{- $heroSrc = $heroRes.RelPermalink }}
+    {{- end }}
+  {{- end }}
+  <figure class="news-hero-media b-bottom{{ if eq $.Params.imageTone "editorial" }} is-editorial{{ end }}">
+    <div class="news-hero-inner">
+      <div class="news-hero-frame">
+        <img src="{{ $heroSrc }}" alt="{{ default $.Title $.Params.imageAlt }}"{{ with $heroW }} width="{{ . }}"{{ end }}{{ with $heroH }} height="{{ . }}"{{ end }} fetchpriority="high" decoding="async">
+      </div>
+      {{- with $.Params.imageCaption }}
+      <figcaption class="mono">{{ . }}</figcaption>
+      {{- end }}
+    </div>
+  </figure>
+  {{- end }}
+
+  <div class="news-article-body b-bottom">
+    <div class="prose">
+      {{ .Content }}
+    </div>
+  </div>
+</article>
+
+{{- if or .PrevInSection .NextInSection }}
+<nav class="news-pager b-bottom" aria-label="Adjacent news entries">
+  <div class="news-pager-cell b-right">
+    {{- with .PrevInSection }}
+    <span class="mono news-pager-label">&larr; OLDER ENTRY</span>
+    <a href="{{ strings.TrimSuffix "/" .RelPermalink }}" class="news-pager-title">{{ .Title }}</a>
+    {{- end }}
+  </div>
+  <div class="news-pager-cell news-pager-next">
+    {{- with .NextInSection }}
+    <span class="mono news-pager-label">NEWER ENTRY &rarr;</span>
+    <a href="{{ strings.TrimSuffix "/" .RelPermalink }}" class="news-pager-title">{{ .Title }}</a>
+    {{- end }}
+  </div>
+</nav>
+{{- end }}
+
+<section class="cta cta-compact b-bottom" aria-labelledby="article-cta-heading">
+  <span class="mono mb-2 accent-text">WORK WITH JK</span>
+  <h2 id="article-cta-heading">NEED CLOUD OR<br>TECH LEADERSHIP?</h2>
+  <a href="/#contact" class="btn btn-massive">Initiate Consultation</a>
+</section>
+{{ end }}

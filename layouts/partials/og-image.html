@@ -1,0 +1,192 @@
+{{- $url := .Site.Params.ogImage | absURL -}}
+{{- $type := "image/png" -}}
+{{- $width := 1200 -}}
+{{- $height := 630 -}}
+{{- $alt := .Site.Params.ogImageAlt -}}
+{{- with .Params.ogImageAlt -}}
+  {{- $alt = . -}}
+{{- else -}}
+  {{- if and .IsPage (eq .Section "news") -}}
+    {{- $alt = printf "%s | Code Brew Studio" .Title -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $resolved := false -}}
+
+{{- /* 1. Explicit ogImage front matter override */ -}}
+{{- with .Params.ogImage -}}
+  {{- $res := $.Resources.GetMatch . -}}
+  {{- if $res -}}
+    {{- if ne $res.MediaType.SubType "svg" -}}
+      {{- $fitted := $res.Fill "1200x630 Center png" -}}
+      {{- $url = $fitted.Permalink -}}
+      {{- $type = "image/png" -}}
+      {{- $width = $fitted.Width -}}
+      {{- $height = $fitted.Height -}}
+    {{- else -}}
+      {{- $url = $res.Permalink -}}
+      {{- $type = $res.MediaType.Type -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $url = . | absURL -}}
+  {{- end -}}
+  {{- $resolved = true -}}
+{{- end -}}
+
+{{- /* 2. Conventional og.* image inside a page bundle */ -}}
+{{- if not $resolved -}}
+  {{- with .Resources.GetMatch "og.{png,jpg,jpeg,webp}" -}}
+    {{- $fitted := .Fill "1200x630 Center png" -}}
+    {{- $url = $fitted.Permalink -}}
+    {{- $type = "image/png" -}}
+    {{- $width = $fitted.Width -}}
+    {{- $height = $fitted.Height -}}
+    {{- $resolved = true -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* 3. Auto-generated branded OG card for /news posts (with optional hero photo) */ -}}
+{{- if and (not $resolved) .IsPage (eq .Section "news") -}}
+  {{- $heroImg := false -}}
+  {{- with .Params.image -}}
+    {{- $res := $.Resources.GetMatch . -}}
+    {{- if and $res (ne $res.MediaType.SubType "svg") -}}
+      {{- $heroImg = $res -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $basePath := cond (not (not $heroImg)) "og/base-photo.png" "og/base.png" -}}
+  {{- $base := resources.Get $basePath -}}
+  {{- $fontBold := resources.Get "fonts/SpaceGrotesk-Bold.ttf" -}}
+  {{- $fontMono := resources.Get "fonts/SpaceMono-Regular.ttf" -}}
+  {{- $fontBody := resources.Get "fonts/Inter-Regular.ttf" -}}
+  {{- if and $base $fontBold $fontMono $fontBody -}}
+    {{- $cat := "NEWS" -}}
+    {{- with .Params.categories -}}
+      {{- $cat = upper (index . 0) -}}
+    {{- end -}}
+    {{- $eyebrow := printf "%s // %s" $cat (upper (.Date.Format "02 Jan 2006")) -}}
+
+    {{- /* Adjust text measure depending on whether a right-hand hero photo is present */ -}}
+    {{- $rawTitle := upper .Title -}}
+    {{- $titleSize := 56 -}}
+    {{- $maxChars := 23 -}}
+    {{- $summarySize := 24 -}}
+    {{- $summaryMaxChars := 56 -}}
+    {{- if $heroImg -}}
+      {{- $titleSize = 48 -}}
+      {{- $maxChars = 19 -}}
+      {{- $summarySize = 22 -}}
+      {{- $summaryMaxChars = 44 -}}
+      {{- if gt (len $rawTitle) 48 -}}
+        {{- $titleSize = 40 -}}
+        {{- $maxChars = 23 -}}
+      {{- end -}}
+    {{- else if gt (len $rawTitle) 55 -}}
+      {{- $titleSize = 46 -}}
+      {{- $maxChars = 28 -}}
+    {{- end -}}
+
+    {{- $titleWords := split $rawTitle " " -}}
+    {{- $titleLines := slice -}}
+    {{- $cur := "" -}}
+    {{- range $titleWords -}}
+      {{- if eq $cur "" -}}
+        {{- $cur = . -}}
+      {{- else if le (add (len $cur) (add 1 (len .))) $maxChars -}}
+        {{- $cur = printf "%s %s" $cur . -}}
+      {{- else -}}
+        {{- $titleLines = $titleLines | append $cur -}}
+        {{- $cur = . -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if ne $cur "" -}}
+      {{- $titleLines = $titleLines | append $cur -}}
+    {{- end -}}
+    {{- if gt (len $titleLines) 3 -}}
+      {{- $titleLines = first 3 $titleLines -}}
+    {{- end -}}
+    {{- $wrappedTitle := delimit $titleLines "\n" -}}
+
+    {{- $rawSummary := "" -}}
+    {{- with .Params.summary -}}
+      {{- $rawSummary = . -}}
+    {{- else -}}
+      {{- with .Description -}}
+        {{- $rawSummary = . -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $summaryWords := split $rawSummary " " -}}
+    {{- $summaryLines := slice -}}
+    {{- $scur := "" -}}
+    {{- range $summaryWords -}}
+      {{- if eq $scur "" -}}
+        {{- $scur = . -}}
+      {{- else if le (add (len $scur) (add 1 (len .))) $summaryMaxChars -}}
+        {{- $scur = printf "%s %s" $scur . -}}
+      {{- else -}}
+        {{- $summaryLines = $summaryLines | append $scur -}}
+        {{- $scur = . -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if ne $scur "" -}}
+      {{- $summaryLines = $summaryLines | append $scur -}}
+    {{- end -}}
+    {{- if gt (len $summaryLines) 2 -}}
+      {{- $line2 := index $summaryLines 1 -}}
+      {{- $summaryLines = slice (index $summaryLines 0) (printf "%s..." (strings.TrimRight ".,;: " $line2)) -}}
+    {{- end -}}
+    {{- $wrappedSummary := delimit $summaryLines "\n" -}}
+
+    {{- $filters := slice -}}
+    {{- if $heroImg -}}
+      {{- $cropped := $heroImg.Fill "414x431 Smart" -}}
+      {{- if eq .Params.imageTone "editorial" -}}
+        {{- $cropped = $cropped | images.Filter images.Grayscale -}}
+      {{- end -}}
+      {{- $filters = $filters | append (images.Overlay $cropped 761 105) -}}
+    {{- end -}}
+
+    {{- $filters = $filters | append
+      (images.Text $eyebrow (dict
+        "color" "#a84630"
+        "size" 19
+        "x" 64
+        "y" 148
+        "font" $fontMono
+      ))
+      (images.Text $wrappedTitle (dict
+        "color" "#1c1b1a"
+        "size" $titleSize
+        "linespacing" 8
+        "x" 64
+        "y" 196
+        "font" $fontBold
+      ))
+    -}}
+    {{- if ne $wrappedSummary "" -}}
+      {{- $filters = $filters | append (images.Text $wrappedSummary (dict
+        "color" "#444444"
+        "size" $summarySize
+        "linespacing" 10
+        "x" 64
+        "y" 432
+        "font" $fontBody
+      )) -}}
+    {{- end -}}
+
+    {{- $card := $base | images.Filter $filters -}}
+    {{- $outPath := printf "og/news-%s.png" .File.ContentBaseName -}}
+    {{- if eq .File.ContentBaseName "index" -}}
+      {{- $outPath = printf "og/news-%s.png" (path.Base .File.Dir) -}}
+    {{- end -}}
+    {{- $published := $card | resources.Copy $outPath -}}
+    {{- $url = $published.Permalink -}}
+    {{- $type = "image/png" -}}
+    {{- $width = $published.Width -}}
+    {{- $height = $published.Height -}}
+    {{- $resolved = true -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return (dict "url" $url "type" $type "width" $width "height" $height "alt" $alt) -}}
