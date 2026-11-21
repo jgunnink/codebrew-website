@@ -792,35 +792,22 @@ footer {
   margin: 0.5rem 0;
 }
 
-/* --- NEWS (HOMEPAGE PREVIEW, LIST, & SINGLE) --- */
-.news-preview-grid {
+/* --- NEWS (HOMEPAGE FEATURED, LIST, & SINGLE) --- */
+.news-featured {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1.15fr 0.85fr;
 }
 
-.news-preview-grid[data-count="1"] {
+.news-featured.no-media {
   grid-template-columns: 1fr;
 }
 
-.news-preview-grid[data-count="2"] {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.news-preview-card {
-  padding: 4rem 3rem;
+.news-featured-content {
+  padding: 5vw 3.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1.25rem;
-  border-right: 1px solid var(--border);
-  transition: background 0.3s ease;
-}
-
-.news-preview-card:last-child {
-  border-right: none;
-}
-
-.news-preview-card:hover {
-  background: var(--hover);
 }
 
 .news-card-meta {
@@ -834,21 +821,51 @@ footer {
   color: var(--border);
 }
 
-.news-preview-card h3 {
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
-  line-height: 1.05;
+.news-featured-content h3 {
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  line-height: 1;
 }
 
-.news-preview-card h3 a:hover,
+.news-featured-content h3 a:hover,
 .news-row-body h2 a:hover {
   color: var(--accent);
 }
 
-.news-preview-card p {
-  font-size: 1.05rem;
+.news-featured-content p {
+  font-size: 1.15rem;
   color: var(--softened-text);
-  max-width: 65ch;
-  flex-grow: 1;
+  max-width: 650px;
+}
+
+.news-featured-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.news-featured-media {
+  display: block;
+  background: #d9d8d0;
+  overflow: hidden;
+  min-height: 360px;
+}
+
+.news-featured-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.news-featured-media:hover img {
+  transform: scale(1.02);
+}
+
+.news-featured-media.is-editorial img {
+  filter: grayscale(100%) contrast(135%) brightness(0.92);
+  mix-blend-mode: multiply;
 }
 
 .news-read-link,
@@ -1254,19 +1271,14 @@ footer {
   .philosophy,
   .saas-item,
   .cap-grid,
-  .news-preview-grid,
-  .news-preview-grid[data-count="2"],
+  .news-featured,
   .news-row,
   .news-pager {
     grid-template-columns: 1fr;
   }
 
-  .news-preview-card {
-    border-right: none;
-  }
-
-  .news-preview-card:not(:last-child) {
-    border-bottom: 1px solid var(--border);
+  .news-featured-media {
+    min-height: 260px;
   }
 
   .news-pager-next {
@@ -1364,7 +1376,7 @@ footer {
   .saas-content,
   .gde-feature,
   .cert-item,
-  .news-preview-card,
+  .news-featured-content,
   .news-row-meta,
   .news-row-body,
   .news-empty,

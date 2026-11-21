@@ -197,34 +197,65 @@
   </div>
 </section>
 
-{{- $recentNews := first 3 (where .Site.RegularPages "Section" "news") -}}
-{{- with $recentNews }}
+{{- $recentNews := first 1 (where .Site.RegularPages "Section" "news") -}}
+{{- range $recentNews }}
+{{- $entry := . -}}
+{{- $entryUrl := strings.TrimSuffix "/" .RelPermalink -}}
+{{- $heroSrc := "" -}}
+{{- $heroW := "" -}}
+{{- $heroH := "" -}}
+{{- with .Params.image -}}
+  {{- $res := $entry.Resources.GetMatch . -}}
+  {{- if $res -}}
+    {{- if ne $res.MediaType.SubType "svg" -}}
+      {{- $processed := $res.Fill "900x640 Smart webp q85" -}}
+      {{- $heroSrc = $processed.RelPermalink -}}
+      {{- $heroW = $processed.Width -}}
+      {{- $heroH = $processed.Height -}}
+    {{- else -}}
+      {{- $heroSrc = $res.RelPermalink -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $heroSrc = . -}}
+  {{- end -}}
+{{- end -}}
 <section id="news" aria-labelledby="news-heading">
   <div class="section-label b-bottom">
     <h2 id="news-heading" class="section-label-title">LATEST NEWS</h2>
-    <a href="/news" class="mono section-label-link">05 // ALL NEWS &rarr;</a>
+    <span class="mono">05 // NEWS</span>
   </div>
 
-  <div class="news-preview-grid b-bottom" data-count="{{ len . }}">
-    {{- range . }}
-    <article class="news-preview-card">
+  <article class="news-featured b-bottom{{ if not $heroSrc }} no-media{{ end }}">
+    <div class="news-featured-content{{ if $heroSrc }} b-right{{ end }}">
       <div class="news-card-meta mono">
         <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
         {{- with .Params.categories }}
         <span class="news-meta-sep" aria-hidden="true">//</span>
         <span class="accent-text">{{ index . 0 }}</span>
         {{- end }}
+        {{- with .Params.event }}
+        <span class="news-meta-sep" aria-hidden="true">//</span>
+        <span>{{ . }}</span>
+        {{- end }}
       </div>
-      <h3><a href="{{ strings.TrimSuffix "/" .RelPermalink }}">{{ .Title }}</a></h3>
+      <h3><a href="{{ $entryUrl }}">{{ .Title }}</a></h3>
       {{- with .Params.summary }}
       <p>{{ . }}</p>
       {{- else }}
       <p>{{ .Summary }}</p>
       {{- end }}
-      <a href="{{ strings.TrimSuffix "/" .RelPermalink }}" class="mono news-read-link">READ ENTRY &rarr;</a>
-    </article>
+      <div class="news-featured-actions">
+        <a href="{{ $entryUrl }}" class="btn">Read More</a>
+        <a href="/news" class="btn btn-outline">All News</a>
+      </div>
+    </div>
+
+    {{- if $heroSrc }}
+    <a href="{{ $entryUrl }}" class="news-featured-media{{ if eq .Params.imageTone "editorial" }} is-editorial{{ end }}" aria-label="Read {{ .Title }}">
+      <img src="{{ $heroSrc }}" alt="{{ default .Title .Params.imageAlt }}"{{ with $heroW }} width="{{ . }}"{{ end }}{{ with $heroH }} height="{{ . }}"{{ end }} loading="lazy" decoding="async">
+    </a>
     {{- end }}
-  </div>
+  </article>
 </section>
 {{- end }}
 
