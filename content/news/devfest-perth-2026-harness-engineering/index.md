@@ -23,7 +23,7 @@ I started by asking the room who knew what an AI harness was. Unsurprisingly, on
 
 In the talk I called this the "two clocks" problem: generating code takes seconds, whilst verifying it still takes hours or days. Replying in chat with "are you sure this is right?" doesn't help, because the model just grades its own guess. A handy way to frame it is hardware: the LLM is a raw CPU and the **harness** is its operating system (instructions, permissions, memory, scripts, hooks, retry caps). Building one comes down to normal software engineering habits, no ML PhD required.
 
-I learnt this auditing 208 of my sessions across [RocketFlag](https://rocketflag.com/?utm_source=website&utm_medium=organic&utm_campaign=codebrew-) (my Go and React SaaS) and a client's clinical Rails app. Compressing around 111 MB of transcripts to 440 KB of friction signals showed almost every broken rule was already in `AGENTS.md` or memory files (including 29 buried in `.claude/`, invisible once I switched to Antigravity). Moving rules from prose into real harness mechanics (with the exact same models underneath) cut follow-up turns from 8.4 to 4.6 and PR close-outs from 7.1 to 3.8.
+I learnt this auditing 208 of my sessions across [RocketFlag](https://rocketflag.app/?utm_source=codebrew&utm_medium=referral&utm_campaign=news-devfest-perth-2026) (my Go and React SaaS) and a client's clinical Rails app. Compressing around 111 MB of transcripts to 440 KB of friction signals showed almost every broken rule was already in `AGENTS.md` or memory files (including 29 buried in `.claude/`, invisible once I switched to Antigravity). Moving rules from prose into real harness mechanics (with the exact same models underneath) cut follow-up turns from 8.4 to 4.6 and PR close-outs from 7.1 to 3.8.
 
 ![JK presenting at DevFest Perth 2026](post1-04.jpg "JK presenting at DevFest Perth 2026")
 
@@ -39,13 +39,13 @@ A single accuracy number doesn't say much about production readiness. In the tal
 
 **4. Reliability.** Single runs can be luck, so `pass^k` (the odds all `k` runs succeed) is a truer test. An 80% rate drops to around 33% over five runs (`0.8^5`), which is why we scripted our rebase, CI polling, and review-bot loop.
 
-**5. Robustness.** Day-to-day prompts are often vague. When I paste a rough Slack bug note asking "is this worth fixing?", our harness routes it to diagnose-only and blocks edits at a pre-tool hook until I say go.
+**5. Robustness.** Day-to-day prompts are often vague. When I paste a rough Slack bug note asking "is this worth fixing?", our harness routes it to diagnose-only and blocks code edits automatically via a tool hook until I say go.
 
-**6. Safety.** Written rules fade after compaction (agents broke our browser rule across 10-plus sessions). Dual-encoding pairs a text rule with hard blocks on commands like `rm -rf`, `DROP TABLE`, or unwanted tools in config.
+**6. Safety.** Written rules fade once context gets compressed in long sessions (agents broke our browser rule across 10-plus sessions). Dual-encoding pairs a text rule with hard blocks on commands like `rm -rf`, `DROP TABLE`, or unwanted tools in config.
 
 **7. Fairness.** Average pass rates hide gaps across repos. A harness can handle small TypeScript UI changes reliably while struggling on multi-tenant Rails queries or legacy migrations where linters and characterisation tests are thinner.
 
-![Graphic of visualising the 7 Dimensions of Trust in a Spider Chart](7-dimensions.png "A slide from the presentation showing the 7 Dimensions of Trust")
+![Spider chart visualising the 7 Dimensions of Trust](7-dimensions.png "A slide from the presentation showing the 7 Dimensions of Trust")
 
 ## Where to start
 
