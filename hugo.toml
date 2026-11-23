@@ -16,6 +16,8 @@ enableRobotsTXT = false
   linkedinCompany = "https://www.linkedin.com/company/code-brew-studio"
   linkedinPerson = "https://www.linkedin.com/in/jkgunnink"
   githubPerson = "https://github.com/jgunnink"
+  readoutSrc = "https://in.readout.au/s.js"
+  readoutKey = "ro_pk_d9a9ad1d88910bfbf6dfa1177ad7212d7ecd3f4543c868b9"
 
 [taxonomies]
   category = "categories"

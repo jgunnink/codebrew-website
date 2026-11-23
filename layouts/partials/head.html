@@ -68,4 +68,7 @@
 {{- $styles := resources.Get "css/styles.css" | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
 <script type="module" src="/js/main.js"></script>
+{{- if and .Site.Params.readoutSrc .Site.Params.readoutKey }}
+<script defer src="{{ .Site.Params.readoutSrc }}" data-key="{{ .Site.Params.readoutKey }}"></script>
+{{- end }}
 {{- partial "schema.html" (dict "Page" . "Description" $description "Canonical" $canonical "OgImage" $ogImage) -}}
